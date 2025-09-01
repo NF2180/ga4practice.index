@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Catalog</title>
-  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -20,19 +20,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 <header><h1>GA4 + GTM Practice</h1>
 <nav>
-<a href="/index.html">Home</a>
-<a href="/catalog.html">Catalog</a>
-<a href="/product.html">Product</a>
-<a href="/checkout.html">Checkout</a>
-<a href="/thank-you.html">Thank You</a>
+  <a href="index.html">Home</a>
+  <a href="catalog.html">Catalog</a>
+  <a href="product.html">Product</a>
+  <a href="checkout.html">Checkout</a>
+  <a href="thank-you.html">Thank You</a>
 </nav></header>
 <main>
 
 <h2>Catalog</h2>
 <button onclick="pushEvent('view_item_list',{list:'Catalog'})">Trigger view_item_list</button>
 <ul>
-<li><a href="/product.html" onclick="pushEvent('view_item',{id:'SKU1'})">Cloud Hoodie</a></li>
-<li><a href="/product.html" onclick="pushEvent('view_item',{id:'SKU2'})">Lightning Tee</a></li>
+  <li><a href="product.html" onclick="pushEvent('view_item',{id:'SKU1'})">Cloud Hoodie</a></li>
+  <li><a href="product.html" onclick="pushEvent('view_item',{id:'SKU2'})">Lightning Tee</a></li>
 </ul>
 
 </main>
