@@ -8,16 +8,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-TBQZ253G');</script>
 <!-- End Google Tag Manager -->
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Checkout</title>
-<link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkout</title>
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+
 <header><h1>GA4 + GTM Practice</h1>
 <nav>
   <a href="index.html">Home</a>
@@ -26,11 +27,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a href="checkout.html">Checkout</a>
   <a href="thank-you.html">Thank You</a>
 </nav></header>
+
 <main>
-<h2>Checkout</h2>
-<button onclick="pushEvent('begin_checkout',{items:1})">Begin Checkout</button>
-<button onclick="pushEvent('purchase',{id:'T123',value:49.99})">Purchase</button>
+  <h2>Checkout</h2>
+
+  <!-- Begin Checkout button -->
+  <button onclick="pushEvent('begin_checkout', {
+    items: [
+      {
+        item_id: 'SKU1',
+        item_name: 'Cloud Hoodie',
+        price: 49.99,
+        quantity: 1
+      }
+    ]
+  })">Begin Checkout</button>
+
+  <!-- Purchase button -->
+  <button onclick="pushEvent('purchase', {
+    transaction_id: 'T12345',
+    value: 49.99,
+    currency: 'INR',
+    items: [
+      {
+        item_id: 'SKU1',
+        item_name: 'Cloud Hoodie',
+        price: 49.99,
+        quantity: 1
+      }
+    ]
+  })">Purchase</button>
+
 </main>
+
 <footer><p>Practice site for GA4 + GTM</p></footer>
 <script src="assets/js/datalayer.js"></script>
 </body>
