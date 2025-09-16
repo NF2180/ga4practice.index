@@ -1,76 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TBQZ253G');</script>
-<!-- End Google Tag Manager -->
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TBQZ253G');</script>
+  <!-- End Google Tag Manager -->
+
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Catalog</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
-<header>
-  <h1>GA4 + GTM Practice</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="catalog.html">Catalog</a>
-    <a href="product.html">Product</a>
-    <a href="checkout.html">Checkout</a>
-    <a href="thank-you.html">Thank You</a>
-  </nav>
-</header>
+  <header>
+    <h1>GA4 + GTM Practice</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="catalog.html">Catalog</a>
+      <a href="product.html">Product</a>
+      <a href="checkout.html">Checkout</a>
+      <a href="thank-you.html">Thank You</a>
+    </nav>
+  </header>
 
-<main>
-  <h2>Catalog</h2>
+  <main>
+    <h2>Catalog</h2>
+    <p>Click a product to view details. Each link pushes a <code>view_item_list</code> event with an items[] array.</p>
 
-  <p>Click a product to view its details. The click will push a <code>view_item_list</code> event and then navigate to the product page.</p>
+    <ul>
+      <li>
+        <a href="product.html"
+           onclick="pushEvent('view_item_list', {
+             list_name: 'Catalog Page',
+             items: [
+               { item_id: 'SKU1', item_name: 'Cloud Hoodie', price: 49.99 }
+             ]
+           })">
+          <strong>Cloud Hoodie</strong> — ₹49.99
+        </a>
+      </li>
 
-  <ul>
-    <li>
-      <!-- view_item_list push includes list_name and items array -->
-      <a href="product.html"
-         onclick="pushEvent('view_item_list', {
-           list_name: 'Catalog',
-           items: [{ item_id: 'SKU1', item_name: 'Cloud Hoodie', price: 49.99 }]
-         })">
-        Cloud Hoodie — ₹49.99
-      </a>
-    </li>
+      <li>
+        <a href="product-2.html"
+           onclick="pushEvent('view_item_list', {
+             list_name: 'Catalog Page',
+             items: [
+               { item_id: 'SKU2', item_name: 'Red Hoodie', price: 59.99 }
+             ]
+           })">
+          <strong>Red Hoodie</strong> — ₹59.99
+        </a>
+      </li>
 
-    <li>
-      <a href="product.html"
-         onclick="pushEvent('view_item_list', {
-           list_name: 'Catalog',
-           items: [{ item_id: 'SKU2', item_name: 'Lightning Tee', price: 29.99 }]
-         })">
-        Lightning Tee — ₹29.99
-      </a>
-    </li>
+      <li>
+        <a href="product-3.html"
+           onclick="pushEvent('view_item_list', {
+             list_name: 'Catalog Page',
+             items: [
+               { item_id: 'SKU3', item_name: 'Training Shoes', price: 79.99 }
+             ]
+           })">
+          <strong>Training Shoes</strong> — ₹79.99
+        </a>
+      </li>
+    </ul>
 
-    <li>
-      <a href="product.html"
-         onclick="pushEvent('view_item_list', {
-           list_name: 'Catalog',
-           items: [{ item_id: 'SKU3', item_name: 'Cloud Cap', price: 19.99 }]
-         })">
-        Cloud Cap — ₹19.99
-      </a>
-    </li>
-  </ul>
-</main>
+    <hr>
+    <section aria-labelledby="catalog-notes">
+      <h3 id="catalog-notes">Notes for testing</h3>
+      <ol>
+        <li>Open GTM Preview, then click a product link — you should see <code>view_item_list</code> in the Tag Assistant stream.</li>
+        <li>Product pages (<code>product.html</code>, <code>product-2.html</code>, <code>product-3.html</code>) should auto-fire <code>view_item</code> on load (make sure those pages have the correct pushEvent data).</li>
+        <li>Use the <code>dl - items</code> dataLayer variable in GTM to pick up the items[] array for tags.</li>
+      </ol>
+    </section>
+  </main>
 
-<footer><p>Practice site for GA4 + GTM</p></footer>
+  <footer><p>Practice site for GA4 + GTM</p></footer>
 
-<script src="assets/js/datalayer.js"></script>
+  <script src="assets/js/datalayer.js"></script>
 </body>
 </html>
