@@ -87,5 +87,17 @@
   <footer><p>Practice site for GA4 + GTM</p></footer>
 
   <script src="assets/js/datalayer.js"></script>
+  <script>
+window.addEventListener('load', function() {
+  pushEvent('view_item_list', {
+    list_name: 'Catalog',
+    items: [
+      { item_id: 'SKU1', item_name: 'Blue T-Shirt', price: 29.99, quantity: 1 },
+      { item_id: 'SKU2', item_name: 'Red Hoodie', price: 59.99, quantity: 1 },
+      { item_id: 'SKU3', item_name: 'Green Sneakers', price: 89.99, quantity: 1 }
+    ]
+  });
+});
+</script>
 </body>
 </html>
