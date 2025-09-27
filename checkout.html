@@ -62,5 +62,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <footer><p>Practice site for GA4 + GTM</p></footer>
 <script src="assets/js/datalayer.js"></script>
+  <script>
+function beginCheckoutForSKU(sku, name, price){
+  pushEvent('begin_checkout', {
+    items: [{ item_id: sku, item_name: name, price: price, quantity: 1 }]
+  });
+}
+
+// If you have a "Begin Checkout" button, call beginCheckoutForSKU when clicked
+</script>
 </body>
 </html>
