@@ -50,5 +50,18 @@
       items: [{ item_id:'SKU2', item_name:'Red Hoodie', price:59.99, quantity:1 }]
     });
   </script>
+  <script>
+window.addEventListener('load', function() {
+  pushEvent('view_item', {
+    items: [{
+      item_id: 'SKU2',
+      item_name: 'Red Hoodie',
+      price: 59.99,
+      quantity: 1,
+      currency: 'INR'
+    }]
+  });
+});
+</script>
 </body>
 </html>
