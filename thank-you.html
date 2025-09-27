@@ -69,5 +69,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </script>
 
 <footer><p>Practice site for GA4 + GTM</p></footer>
+  <script>
+window.addEventListener('load', function() {
+  // Replace TX123 with your dynamic id if available
+  pushEvent('purchase', {
+    transaction_id: 'TX' + Date.now(),
+    value: 59.99,
+    currency: 'INR',
+    items: [{ item_id: 'SKU2', item_name: 'Red Hoodie', price: 59.99, quantity: 1 }]
+  });
+
+  // also push thank_you as page-load conversion signal
+  pushEvent('thank_you', {
+    transaction_id: 'TX' + Date.now(),
+    value: 59.99,
+    currency: 'INR',
+    items: [{ item_id: 'SKU2', item_name: 'Red Hoodie', price: 59.99, quantity: 1 }]
+  });
+});
+</script>
 </body>
 </html>
