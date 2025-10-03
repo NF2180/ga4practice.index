@@ -9,7 +9,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-TBQZ253G');</script>
 <!-- End Google Tag Manager -->
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Product — Cloud Hoodie</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -19,60 +19,58 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header>
-  <h1>GA4 + GTM Practice</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="catalog.html">Catalog</a>
-    <a href="product.html">Product</a>
-    <a href="checkout.html">Checkout</a>
-    <a href="thank-you.html">Thank You</a>
-  </nav>
-</header>
+<header><h1>GA4 + GTM Practice</h1>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="catalog.html">Catalog</a>
+  <a href="product.html">Product</a>
+  <a href="product-2.html">Product 2</a>
+  <a href="product-3.html">Product 3</a>
+  <a href="checkout.html">Checkout</a>
+  <a href="thank-you.html">Thank You</a>
+</nav></header>
 
 <main>
-  <h2>Cloud Hoodie</h2>
-  <p>Price: ₹49.99</p>
+  <h2>Product — Cloud Hoodie</h2>
+  <p>Cloud Hoodie — ₹49.99</p>
 
-  <!-- Add to cart (already wired in your site) -->
-  <button onclick="pushEvent('add_to_cart', {id:'SKU1', price:49.99})">Add to Cart</button>
-
-  <p>
-    <!-- Link back to catalog -->
-    <a href="catalog.html">Back to Catalog</a>
-  </p>
+  <button id="add-to-cart-btn">Add to Cart</button>
+  <p><a href="checkout.html">Go to Checkout</a></p>
 </main>
 
 <footer><p>Practice site for GA4 + GTM</p></footer>
 
-<!-- datalayer helper must load before auto-fire script below -->
 <script src="assets/js/datalayer.js"></script>
 
-<!-- Auto-fire view_item on page load -->
 <script>
+  // send view_item with sku_step on page load
   window.addEventListener('load', function() {
-    // Fire view_item with an items array (GA4-friendly)
-    pushEvent('view_item', {
-      items: [{
-        item_id: 'SKU1',
-        item_name: 'Cloud Hoodie',
-        price: 49.99
-      }]
-    });
-  });
-</script>
-  <script>
-window.addEventListener('load', function() {
-  pushEvent('view_item', {
-    items: [{
+    var item = {
       item_id: 'SKU1',
       item_name: 'Cloud Hoodie',
       price: 49.99,
       quantity: 1,
       currency: 'INR'
-    }]
+    };
+
+    // view_item (items array + top-level sku_step)
+    pushEvent('view_item', {
+      sku_step: item.item_name,
+      items: [item]
+    });
+
+    // attach Add to Cart button
+    document.getElementById('add-to-cart-btn').addEventListener('click', function(){
+      pushEvent('add_to_cart', {
+        sku_step: item.item_name,
+        items: [item],
+        id: item.item_id,
+        price: item.price
+      });
+      alert('Added Cloud Hoodie to cart (debug).');
+    });
   });
-});
 </script>
+
 </body>
 </html>
