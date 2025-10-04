@@ -2,73 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Catalog</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Catalog</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
+
 <body>
   <header>
-    <h1>GA4 + GTM Practice</h1>
-    <nav>
-      <a href="/index.html">Home</a>
-      <a href="/catalog.html">Catalog</a>
-      <a href="/product.html">Product</a>
-      <a href="/checkout.html">Checkout</a>
-      <a href="/thank-you.html">Thank You</a>
-    </nav>
+    <h1>Product Catalog</h1>
   </header>
 
   <main>
-    <h2>Product Catalog</h2>
-    <div class="catalog">
-      <div class="item">
-        <p>Cloud Hoodie - ₹49.99</p>
-        <a href="/product.html">
-          <button>View Item</button>
-        </a>
+    <div class="product-list">
+      <!-- Product 1 -->
+      <div class="product-card">
+        <img src="assets/images/red-hoodie.jpg" alt="Red Hoodie" />
+        <h2>Red Hoodie</h2>
+        <p>₹1499</p>
+        <a href="product1.html" class="view-product" data-sku="SKU-1" data-name="Red Hoodie" data-price="1499">View Product</a>
       </div>
-      <div class="item">
-        <p>Red Hoodie - ₹59.99</p>
-        <a href="/product2.html">
-          <button>View Item</button>
-        </a>
+
+      <!-- Product 2 -->
+      <div class="product-card">
+        <img src="assets/images/training-shoes.jpg" alt="Training Shoes" />
+        <h2>Training Shoes</h2>
+        <p>₹2999</p>
+        <a href="product2.html" class="view-product" data-sku="SKU-2" data-name="Training Shoes" data-price="2999">View Product</a>
       </div>
-      <div class="item">
-        <p>Training Shoes - ₹79.99</p>
-        <a href="/product3.html">
-          <button>View Item</button>
-        </a>
+
+      <!-- Product 3 -->
+      <div class="product-card">
+        <img src="assets/images/sports-cap.jpg" alt="Sports Cap" />
+        <h2>Sports Cap</h2>
+        <p>₹499</p>
+        <a href="product3.html" class="view-product" data-sku="SKU-3" data-name="Sports Cap" data-price="499">View Product</a>
       </div>
     </div>
   </main>
 
-  <footer>
-    <p>Practice site for GA4 + GTM</p>
-  </footer>
-
   <script>
+    // Fire view_item_list when catalog loads
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
-      event: "view_item_list",
-      sku_step: "Catalog View",
-      item_list_name: "Apparel Collection",
+      event: 'view_item_list',
+      sku_step: 'catalog_view',
+      item_list_name: 'Catalog Page',
       items: [
-        {
-          item_id: "SKU1",
-          item_name: "Cloud Hoodie",
-          price: 49.99
-        },
-        {
-          item_id: "SKU2",
-          item_name: "Red Hoodie",
-          price: 59.99
-        },
-        {
-          item_id: "SKU3",
-          item_name: "Training Shoes",
-          price: 79.99
-        }
+        { item_id: 'SKU-1', item_name: 'Red Hoodie', price: 1499, currency: 'INR' },
+        { item_id: 'SKU-2', item_name: 'Training Shoes', price: 2999, currency: 'INR' },
+        { item_id: 'SKU-3', item_name: 'Sports Cap', price: 499, currency: 'INR' }
       ]
+    });
+
+    // Fire view_item when user clicks a product link
+    document.querySelectorAll('.view-product').forEach(link => {
+      link.addEventListener('click', function (e) {
+        const sku = this.dataset.sku;
+        const name = this.dataset.name;
+        const price = this.dataset.price;
+
+        window.dataLayer.push({
+          event: 'view_item',
+          sku_step: 'product_click',
+          items: [{ item_id: sku, item_name: name, price: price, currency: 'INR' }]
+        });
+      });
     });
   </script>
 </body>
