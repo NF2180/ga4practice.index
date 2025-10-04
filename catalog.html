@@ -3,70 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Product Catalog</title>
+  <title>Catalog Page</title>
   <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="assets/js/datalayer.js"></script>
 </head>
-
 <body>
-  <header>
-    <h1>Product Catalog</h1>
-  </header>
-
-  <main>
-    <div class="product-list">
-      <!-- Product 1 -->
-      <div class="product-card">
-        <img src="assets/images/red-hoodie.jpg" alt="Red Hoodie" />
-        <h2>Red Hoodie</h2>
-        <p>₹1499</p>
-        <a href="product1.html" class="view-product" data-sku="SKU-1" data-name="Red Hoodie" data-price="1499">View Product</a>
-      </div>
-
-      <!-- Product 2 -->
-      <div class="product-card">
-        <img src="assets/images/training-shoes.jpg" alt="Training Shoes" />
-        <h2>Training Shoes</h2>
-        <p>₹2999</p>
-        <a href="product2.html" class="view-product" data-sku="SKU-2" data-name="Training Shoes" data-price="2999">View Product</a>
-      </div>
-
-      <!-- Product 3 -->
-      <div class="product-card">
-        <img src="assets/images/sports-cap.jpg" alt="Sports Cap" />
-        <h2>Sports Cap</h2>
-        <p>₹499</p>
-        <a href="product3.html" class="view-product" data-sku="SKU-3" data-name="Sports Cap" data-price="499">View Product</a>
-      </div>
+  <h1>Product Catalog</h1>
+  <div class="product-list">
+    <div class="product-item">
+      <h2>Red Hoodie</h2>
+      <p>Price: ₹1,999</p>
+      <a href="https://nf2180.github.io/ga4practice.index/product1.html" 
+         onclick="pushEvent('view_item', {item_name: 'Red Hoodie', item_id: 'SKU1', price: 1999, currency: 'INR', sku_step: 'catalog'})">
+         View Details
+      </a>
     </div>
-  </main>
+
+    <div class="product-item">
+      <h2>Training Shoes</h2>
+      <p>Price: ₹3,499</p>
+      <a href="https://nf2180.github.io/ga4practice.index/product2.html" 
+         onclick="pushEvent('view_item', {item_name: 'Training Shoes', item_id: 'SKU2', price: 3499, currency: 'INR', sku_step: 'catalog'})">
+         View Details
+      </a>
+    </div>
+
+    <div class="product-item">
+      <h2>Sports Cap</h2>
+      <p>Price: ₹799</p>
+      <a href="https://nf2180.github.io/ga4practice.index/product3.html" 
+         onclick="pushEvent('view_item', {item_name: 'Sports Cap', item_id: 'SKU3', price: 799, currency: 'INR', sku_step: 'catalog'})">
+         View Details
+      </a>
+    </div>
+  </div>
 
   <script>
-    // Fire view_item_list when catalog loads
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: 'view_item_list',
-      sku_step: 'catalog_view',
+    // Auto fire view_item_list when catalog loads
+    pushEvent('view_item_list', {
       item_list_name: 'Catalog Page',
       items: [
-        { item_id: 'SKU-1', item_name: 'Red Hoodie', price: 1499, currency: 'INR' },
-        { item_id: 'SKU-2', item_name: 'Training Shoes', price: 2999, currency: 'INR' },
-        { item_id: 'SKU-3', item_name: 'Sports Cap', price: 499, currency: 'INR' }
+        { item_name: 'Red Hoodie', item_id: 'SKU1', price: 1999, currency: 'INR', sku_step: 'catalog' },
+        { item_name: 'Training Shoes', item_id: 'SKU2', price: 3499, currency: 'INR', sku_step: 'catalog' },
+        { item_name: 'Sports Cap', item_id: 'SKU3', price: 799, currency: 'INR', sku_step: 'catalog' }
       ]
-    });
-
-    // Fire view_item when user clicks a product link
-    document.querySelectorAll('.view-product').forEach(link => {
-      link.addEventListener('click', function (e) {
-        const sku = this.dataset.sku;
-        const name = this.dataset.name;
-        const price = this.dataset.price;
-
-        window.dataLayer.push({
-          event: 'view_item',
-          sku_step: 'product_click',
-          items: [{ item_id: sku, item_name: name, price: price, currency: 'INR' }]
-        });
-      });
     });
   </script>
 </body>
