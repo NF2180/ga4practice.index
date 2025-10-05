@@ -1,72 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catalog - GA4 Practice</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catalog Page</title>
+  <link rel="stylesheet" href="styles.css" />
 
   <!-- Google Tag Manager -->
   <script>
-  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id=GTM-TBQZ253G'+dl;
-  f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-TBQZ253G');
+    (function(w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-XXXXXXX'); // Replace with your GTM ID
   </script>
   <!-- End Google Tag Manager -->
-
-  <style>
-    body { font-family: Arial; margin: 40px; }
-    .catalog { display: flex; gap: 40px; }
-    .item { border: 1px solid #ddd; padding: 10px; width: 200px; text-align: center; }
-    a { text-decoration: none; color: #1976d2; font-weight: bold; }
-  </style>
 </head>
 
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
   <h1>Product Catalog</h1>
+
   <div class="catalog">
-    <div class="item">
-      <img src="images/red-hoodie.jpg" alt="Red Hoodie" width="180">
-      <p>Red Hoodie</p>
-      <p>₹1,999</p>
-      <a href="product-1.html">View Product</a>
+    <div class="product">
+      <img src="red-hoodie.jpg" alt="Red Hoodie" width="150" />
+      <h2>Red Hoodie</h2>
+      <p>₹999</p>
+      <a href="https://nf2180.github.io/ga4practice.index/product.html">View Product</a>
     </div>
-    <div class="item">
-      <img src="images/training-shoes.jpg" alt="Training Shoes" width="180">
-      <p>Training Shoes</p>
-      <p>₹2,999</p>
-      <a href="product-2.html">View Product</a>
+
+    <div class="product">
+      <img src="training-shoes.jpg" alt="Training Shoes" width="150" />
+      <h2>Training Shoes</h2>
+      <p>₹2,499</p>
+      <a href="https://nf2180.github.io/ga4practice.index/product-2.html">View Product</a>
     </div>
-    <div class="item">
-      <img src="images/smartwatch.jpg" alt="Smartwatch" width="180">
-      <p>Smartwatch</p>
-      <p>₹4,499</p>
-      <a href="product-3.html">View Product</a>
+
+    <div class="product">
+      <img src="green-sneakers.jpg" alt="Green Sneakers" width="150" />
+      <h2>Green Sneakers</h2>
+      <p>₹1,899</p>
+      <a href="https://nf2180.github.io/ga4practice.index/product-3.html">View Product</a>
     </div>
   </div>
 
   <script>
+    // ✅ Push a catalog event to dataLayer
     window.dataLayer = window.dataLayer || [];
-    dataLayer.push({
+    window.dataLayer.push({
       event: 'view_item_list',
       sku_step: 'catalog',
       ecommerce: {
         items: [
-          { item_name: 'Red Hoodie', item_id: 'RH001', price: 1999, index: 1 },
-          { item_name: 'Training Shoes', item_id: 'TS002', price: 2999, index: 2 },
-          { item_name: 'Smartwatch', item_id: 'SW003', price: 4499, index: 3 }
+          {
+            item_id: 'SKU_1',
+            item_name: 'Red Hoodie',
+            price: 999,
+            index: 1
+          },
+          {
+            item_id: 'SKU_2',
+            item_name: 'Training Shoes',
+            price: 2499,
+            index: 2
+          },
+          {
+            item_id: 'SKU_3',
+            item_name: 'Green Sneakers',
+            price: 1899,
+            index: 3
+          }
         ]
       }
     });
+    console.log("✅ Catalog event pushed with sku_step = catalog");
   </script>
 </body>
 </html>
