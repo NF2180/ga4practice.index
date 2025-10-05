@@ -1,124 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Catalog - Demo Store</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalog - GA4 Practice</title>
+
+  <!-- Google Tag Manager -->
+  <script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id=GTM-TBQZ253G'+dl;
+  f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TBQZ253G');
+  </script>
+  <!-- End Google Tag Manager -->
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #fafafa;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    .catalog {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
-    .product {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      padding: 15px;
-      text-align: center;
-      transition: transform 0.2s;
-    }
-    .product:hover {
-      transform: scale(1.03);
-    }
-    .product img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-    .product h3 {
-      margin: 10px 0 5px;
-    }
-    .product p {
-      margin: 5px 0;
-    }
-    .product a {
-      display: inline-block;
-      background: #007bff;
-      color: #fff;
-      padding: 8px 12px;
-      border-radius: 6px;
-      text-decoration: none;
-      margin-top: 8px;
-    }
-    .product a:hover {
-      background: #0056b3;
-    }
+    body { font-family: Arial; margin: 40px; }
+    .catalog { display: flex; gap: 40px; }
+    .item { border: 1px solid #ddd; padding: 10px; width: 200px; text-align: center; }
+    a { text-decoration: none; color: #1976d2; font-weight: bold; }
   </style>
 </head>
+
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
-  <h1>Our Products</h1>
-
+  <h1>Product Catalog</h1>
   <div class="catalog">
-    <!-- Product 1: Red Hoodie -->
-    <div class="product">
-      <img src="images/red-hoodie.jpg" alt="Red Hoodie">
-      <h3>Red Hoodie</h3>
-      <p>₹799</p>
-      <a href="product.html">View Product</a>
+    <div class="item">
+      <img src="images/red-hoodie.jpg" alt="Red Hoodie" width="180">
+      <p>Red Hoodie</p>
+      <p>₹1,999</p>
+      <a href="product-1.html">View Product</a>
     </div>
-
-    <!-- Product 2: Training Shoes -->
-    <div class="product">
-      <img src="images/training-shoes.jpg" alt="Training Shoes">
-      <h3>Training Shoes</h3>
-      <p>₹1,499</p>
+    <div class="item">
+      <img src="images/training-shoes.jpg" alt="Training Shoes" width="180">
+      <p>Training Shoes</p>
+      <p>₹2,999</p>
       <a href="product-2.html">View Product</a>
     </div>
-
-    <!-- Product 3: Blue T-Shirt -->
-    <div class="product">
-      <img src="images/blue-tshirt.jpg" alt="Blue T-Shirt">
-      <h3>Blue T-Shirt</h3>
-      <p>₹599</p>
+    <div class="item">
+      <img src="images/smartwatch.jpg" alt="Smartwatch" width="180">
+      <p>Smartwatch</p>
+      <p>₹4,499</p>
       <a href="product-3.html">View Product</a>
     </div>
   </div>
 
-  <!-- GA4 Seeding Script for Catalog Page -->
   <script>
-    // Simulate catalog view event (view_item_list)
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "view_item_list",
-      sku_step: "catalog_page",
+    dataLayer.push({
+      event: 'view_item_list',
+      sku_step: 'catalog',
       ecommerce: {
         items: [
-          {
-            item_name: "Red Hoodie",
-            item_id: "SKU1",
-            price: 799,
-            item_category: "Apparel"
-          },
-          {
-            item_name: "Training Shoes",
-            item_id: "SKU2",
-            price: 1499,
-            item_category: "Footwear"
-          },
-          {
-            item_name: "Blue T-Shirt",
-            item_id: "SKU3",
-            price: 599,
-            item_category: "Apparel"
-          }
+          { item_name: 'Red Hoodie', item_id: 'RH001', price: 1999, index: 1 },
+          { item_name: 'Training Shoes', item_id: 'TS002', price: 2999, index: 2 },
+          { item_name: 'Smartwatch', item_id: 'SW003', price: 4499, index: 3 }
         ]
       }
     });
-
-    console.log("Catalog page seeded: view_item_list with SKU data");
   </script>
-
 </body>
 </html>
