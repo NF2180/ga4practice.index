@@ -1,88 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Red Hoodie - Demo Store</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Red Hoodie - GA4 Practice</title>
+
+  <!-- Google Tag Manager -->
+  <script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id=GTM-TBQZ253G'+dl;
+  f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TBQZ253G');
+  </script>
+  <!-- End Google Tag Manager -->
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #fafafa;
-      margin: 20px;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    img {
-      width: 100%;
-      border-radius: 8px;
-    }
-    h1 {
-      margin-top: 15px;
-    }
-    button {
-      background: #007bff;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 15px;
-    }
-    button:hover {
-      background: #0056b3;
-    }
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    .product { max-width: 400px; }
+    button { background: #d32f2f; color: white; padding: 10px 20px; border: none; cursor: pointer; }
   </style>
 </head>
-<body>
 
-  <div class="container">
-    <img src="images/red-hoodie.jpg" alt="Red Hoodie">
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="product">
     <h1>Red Hoodie</h1>
-    <p>₹799</p>
-    <button id="addToCart">Add to Cart</button>
+    <img src="images/red-hoodie.jpg" alt="Red Hoodie" width="300" />
+    <p>SKU: RH001</p>
+    <p>Price: ₹1,999</p>
+    <button onclick="addToCart()">Add to Cart</button>
   </div>
 
   <script>
-    // GA4 view_item event for Red Hoodie
+    // Send product view event
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "view_item",
-      sku_step: "product_page",
+    dataLayer.push({
+      event: 'view_item',
+      sku_step: 'product',
       ecommerce: {
         items: [{
-          item_name: "Red Hoodie",
-          item_id: "SKU1",
-          price: 799,
-          item_category: "Apparel"
+          item_name: 'Red Hoodie',
+          item_id: 'RH001',
+          price: 1999,
+          item_category: 'Apparel'
         }]
       }
     });
-    console.log("view_item event pushed for Red Hoodie");
 
-    // Add to cart button listener
-    document.getElementById('addToCart').addEventListener('click', function() {
-      window.dataLayer.push({
-        event: "add_to_cart",
-        sku_step: "add_to_cart",
+    // Add to cart event
+    function addToCart() {
+      dataLayer.push({
+        event: 'add_to_cart',
+        sku_step: 'add_to_cart',
         ecommerce: {
           items: [{
-            item_name: "Red Hoodie",
-            item_id: "SKU1",
-            price: 799,
-            quantity: 1
+            item_name: 'Red Hoodie',
+            item_id: 'RH001',
+            price: 1999
           }]
         }
       });
-      console.log("Add to cart event pushed for Red Hoodie");
-    });
+      window.location.href = 'checkout.html';
+    }
   </script>
 </body>
 </html>
