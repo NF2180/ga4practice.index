@@ -3,55 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You - Demo Store</title>
+  <title>Thank You - GA4 Practice</title>
+
+  <!-- GTM -->
+  <script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id=GTM-TBQZ253G'+dl;
+  f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TBQZ253G');
+  </script>
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5fff5;
-      margin: 20px;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    h1 {
-      color: #28a745;
-    }
+    body { font-family: Arial; margin: 40px; text-align: center; }
+    h1 { color: #2e7d32; }
   </style>
 </head>
-<body>
 
-  <div class="container">
-    <h1>Thank You for Your Purchase!</h1>
-    <p>Your order has been placed successfully.</p>
-  </div>
+<body>
+  <!-- GTM noscript -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <h1>Thank You!</h1>
+  <p>Your order has been placed successfully.</p>
+  <p><a href="catalog.html">Continue Shopping</a></p>
 
   <script>
-    // Generate transaction id for testing
-    const transactionId = "T-" + Date.now();
-
-    // GA4 purchase event (auto fire)
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "purchase",
-      sku_step: "thank_you",
-      ecommerce: {
-        transaction_id: transactionId,
-        value: 2897, // total of all three products
-        currency: "INR",
-        items: [
-          { item_name: "Red Hoodie", item_id: "SKU1", price: 799, quantity: 1 },
-          { item_name: "Training Shoes", item_id: "SKU2", price: 1499, quantity: 1 },
-          { item_name: "Blue T-Shirt", item_id: "SKU3", price: 599, quantity: 1 }
-        ]
-      }
+    dataLayer.push({
+      event: 'thank_you',
+      sku_step: 'thank_you_page'
     });
-    console.log("purchase event pushed with transaction_id:", transactionId);
   </script>
 </body>
 </html>
