@@ -1,74 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Red Hoodie - GA4 Practice</title>
-
-  <!-- Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Red Hoodie</title>
+  <!-- GTM -->
   <script>
-  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id=GTM-TBQZ253G'+dl;
-  f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-TBQZ253G');
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
-  <!-- End Google Tag Manager -->
-
-  <style>
-    body { font-family: Arial, sans-serif; margin: 40px; }
-    .product { max-width: 400px; }
-    button { background: #d32f2f; color: white; padding: 10px 20px; border: none; cursor: pointer; }
-  </style>
+  <style>body{font-family:Arial;margin:40px}</style>
 </head>
-
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
-  <!-- End Google Tag Manager (noscript) -->
-
-  <div class="product">
-    <h1>Red Hoodie</h1>
-    <img src="images/red-hoodie.jpg" alt="Red Hoodie" width="300" />
-    <p>SKU: RH001</p>
-    <p>Price: ₹1,999</p>
-    <button onclick="addToCart()">Add to Cart</button>
-  </div>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <h1>Red Hoodie</h1>
+  <p>₹1299</p>
+  <button onclick="addToCart()">Add to Cart</button>
 
   <script>
-    // Send product view event
-    window.dataLayer = window.dataLayer || [];
+    dataLayer = dataLayer || [];
     dataLayer.push({
-      event: 'view_item',
-      sku_step: 'product',
-      ecommerce: {
-        items: [{
-          item_name: 'Red Hoodie',
-          item_id: 'RH001',
-          price: 1999,
-          item_category: 'Apparel'
-        }]
-      }
+      event: "view_item",
+      items: [{ item_name: "Red Hoodie", item_id: "SKU1", price: 1299 }]
     });
-
-    // Add to cart event
-    function addToCart() {
+    function addToCart(){
       dataLayer.push({
-        event: 'add_to_cart',
-        sku_step: 'add_to_cart',
-        ecommerce: {
-          items: [{
-            item_name: 'Red Hoodie',
-            item_id: 'RH001',
-            price: 1999
-          }]
-        }
+        event: "add_to_cart",
+        items: [{ item_name: "Red Hoodie", item_id: "SKU1", price: 1299 }]
       });
-      window.location.href = 'checkout.html';
+      window.location.href="checkout.html";
     }
   </script>
 </body>
