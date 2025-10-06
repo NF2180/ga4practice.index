@@ -1,37 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TBQZ253G');</script>
-<!-- End Google Tag Manager -->
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Home</title>
-<link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalog | GA4 Practice</title>
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TBQZ253G');
+  </script>
+  <!-- End Google Tag Manager -->
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background: #fafafa; }
+    .product-list { display: flex; gap: 40px; }
+    .product { border: 1px solid #ddd; border-radius: 10px; padding: 20px; width: 220px; background: #fff; text-align: center; }
+    a { text-decoration: none; color: #007bff; font-weight: bold; }
+  </style>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<header><h1>GA4 + GTM Practice</h1>
-<nav>
-  <a href="index.html">Home</a>
-  <a href="catalog.html">Catalog</a>
-  <a href="product.html">Product</a>
-  <a href="checkout.html">Checkout</a>
-  <a href="thank-you.html">Thank You</a>
-</nav></header>
-<main>
-<h2>Welcome</h2>
-<p>Use this site to practice GA4 + GTM.</p>
-<a href="catalog.html">Go to Catalog</a>
-</main>
-<footer><p>Practice site for GA4 + GTM</p></footer>
-<script src="assets/js/datalayer.js"></script>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <h1>Product Catalog</h1>
+  <div class="product-list">
+    <div class="product">
+      <h2>Red Hoodie</h2>
+      <p>₹1299</p>
+      <a href="product.html">View Product</a>
+    </div>
+    <div class="product">
+      <h2>Training Shoes</h2>
+      <p>₹2499</p>
+      <a href="product-1.html">View Product</a>
+    </div>
+    <div class="product">
+      <h2>Green T-Shirt</h2>
+      <p>₹999</p>
+      <a href="product-2.html">View Product</a>
+    </div>
+  </div>
+
+  <script>
+    dataLayer = dataLayer || [];
+    dataLayer.push({
+      event: "view_item_list",
+      items: [
+        { item_name: "Red Hoodie", item_id: "SKU1", price: 1299 },
+        { item_name: "Training Shoes", item_id: "SKU2", price: 2499 },
+        { item_name: "Green T-Shirt", item_id: "SKU3", price: 999 }
+      ]
+    });
+  </script>
 </body>
 </html>
