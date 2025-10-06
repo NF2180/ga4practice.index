@@ -1,60 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catalog | GA4 Practice</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GA4 Practice Store | Home</title>
+
   <!-- Google Tag Manager -->
   <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    (function(w,d,s,l,i){
+      w[l]=w[l]||[];
+      w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),
+          dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
   <!-- End Google Tag Manager -->
-  <style>
-    body { font-family: Arial, sans-serif; margin: 40px; background: #fafafa; }
-    .product-list { display: flex; gap: 40px; }
-    .product { border: 1px solid #ddd; border-radius: 10px; padding: 20px; width: 220px; background: #fff; text-align: center; }
-    a { text-decoration: none; color: #007bff; font-weight: bold; }
-  </style>
+
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
+
 <body>
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
-  <h1>Product Catalog</h1>
-  <div class="product-list">
-    <div class="product">
-      <h2>Red Hoodie</h2>
-      <p>₹1299</p>
-      <a href="product.html">View Product</a>
-    </div>
-    <div class="product">
-      <h2>Training Shoes</h2>
-      <p>₹2499</p>
-      <a href="product-1.html">View Product</a>
-    </div>
-    <div class="product">
-      <h2>Green T-Shirt</h2>
-      <p>₹999</p>
-      <a href="product-2.html">View Product</a>
-    </div>
-  </div>
+  <header>
+    <h1>GA4 Practice Store</h1>
+    <p>Welcome to the demo ecommerce store for testing GA4 and GTM setup.</p>
+  </header>
 
+  <main>
+    <section class="catalog">
+      <h2>Shop Our Products</h2>
+      <div class="product-grid">
+
+        <!-- Product 1 -->
+        <div class="product-card">
+          <img src="assets/images/red-hoodie.jpg" alt="Red Hoodie" />
+          <h3>Red Hoodie</h3>
+          <p>₹1,299</p>
+          <a href="product.html">View Product</a>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+          <img src="assets/images/training-shoes.jpg" alt="Training Shoes" />
+          <h3>Training Shoes</h3>
+          <p>₹2,499</p>
+          <a href="product-1.html">View Product</a>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+          <img src="assets/images/green-tshirt.jpg" alt="Green T-Shirt" />
+          <h3>Green T-Shirt</h3>
+          <p>₹999</p>
+          <a href="product-2.html">View Product</a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 GA4 Practice Store | Built for learning GA4 + GTM Ecommerce Tracking</p>
+  </footer>
+
+  <!-- GA4 Data Layer Event for Homepage -->
   <script>
-    dataLayer = dataLayer || [];
+    window.dataLayer = window.dataLayer || [];
     dataLayer.push({
-      event: "view_item_list",
-      items: [
-        { item_name: "Red Hoodie", item_id: "SKU1", price: 1299 },
-        { item_name: "Training Shoes", item_id: "SKU2", price: 2499 },
-        { item_name: "Green T-Shirt", item_id: "SKU3", price: 999 }
-      ]
+      event: "view_homepage",
+      page_title: "GA4 Practice Store - Home",
+      page_location: window.location.href
     });
   </script>
+
+  <!-- External datalayer.js file -->
+  <script src="assets/js/datalayer.js"></script>
 </body>
 </html>
