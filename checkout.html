@@ -3,67 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout - GA4 Practice</title>
-
-  <!-- GTM -->
+  <title>Checkout</title>
   <script>
-  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id=GTM-TBQZ253G'+dl;
-  f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-TBQZ253G');
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
-
-  <style>
-    body { font-family: Arial; margin: 40px; }
-    button { background: #1976d2; color: white; padding: 10px 20px; border: none; cursor: pointer; }
-  </style>
 </head>
-
 <body>
-  <!-- GTM noscript -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
-
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h1>Checkout</h1>
-  <p>You're almost done!</p>
-  <p>Total Amount: ₹1,999</p>
-
-  <button onclick="completePurchase()">Complete Purchase</button>
+  <button onclick="proceedToPurchase()">Proceed to Payment</button>
 
   <script>
-    window.dataLayer = window.dataLayer || [];
-    dataLayer.push({
-      event: 'begin_checkout',
-      sku_step: 'checkout',
-      ecommerce: {
-        items: [{
-          item_name: 'Red Hoodie',
-          item_id: 'RH001',
-          price: 1999
-        }]
-      }
-    });
-
-    function completePurchase() {
-      dataLayer.push({
-        event: 'purchase',
-        sku_step: 'thank_you',
-        ecommerce: {
-          transaction_id: 'T' + Math.floor(Math.random() * 10000),
-          value: 1999,
-          currency: 'INR',
-          items: [{
-            item_name: 'Red Hoodie',
-            item_id: 'RH001',
-            price: 1999
-          }]
-        }
-      });
-      window.location.href = 'thank-you.html';
+    function proceedToPurchase(){
+      dataLayer.push({ event: "begin_checkout" });
+      window.location.href="thank-you.html";
     }
   </script>
 </body>
