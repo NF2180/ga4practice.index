@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Catalog | GA4 Practice</title>
 
   <!-- Google Tag Manager -->
@@ -13,63 +13,78 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
-  <!-- End Google Tag Manager -->
+  <!-- End GTM -->
 
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; background:#fafafa; }
-    .product-list { display:flex; gap:24px; }
-    .product { width:220px; padding:16px; background:#fff; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.06); text-align:center; }
-    .product h2 { font-size:18px; margin:8px 0; }
-    .product p { margin:6px 0; color:#333; }
-    .product a { display:inline-block; margin-top:10px; padding:8px 12px; background:#007bff; color:#fff; border-radius:6px; text-decoration:none; }
+    body{font-family:Arial,margin:32px;background:#fafafa}
+    h1{color:#222}
+    .grid{display:flex;gap:20px}
+    .card{background:#fff;padding:16px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.06);width:220px;text-align:center}
+    .card h2{margin:8px 0}
+    .card p{margin:6px 0;color:#333}
+    .card a{display:inline-block;margin-top:8px;padding:8px 12px;background:#007bff;color:#fff;border-radius:6px;text-decoration:none}
   </style>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
-  <!-- End Google Tag Manager (noscript) -->
+  <!-- GTM (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- /GTM (noscript) -->
 
   <h1>Product Catalog</h1>
 
-  <div class="product-list">
-    <!-- SKU1 -->
-    <div class="product">
+  <div class="grid">
+    <div class="card" id="card-sku1">
       <h2>Red Hoodie</h2>
       <p>₹1,299</p>
-      <a href="product.html">View Product</a>
+      <a href="https://nf2180.github.io/ga4practice.index/product.html" class="prod-link" data-sku="SKU1" data-name="Red Hoodie">View Product</a>
     </div>
 
-    <!-- SKU2 (UPDATED LINK as requested) -->
-    <div class="product">
+    <div class="card" id="card-sku2">
       <h2>Training Shoes</h2>
       <p>₹2,499</p>
-      <a href="https://nf2180.github.io/ga4practice.index/product-2">View Product</a>
+      <!-- CORRECTED SKU2 link as you requested -->
+      <a href="https://nf2180.github.io/ga4practice.index/product-2" class="prod-link" data-sku="SKU2" data-name="Training Shoes">View Product</a>
     </div>
 
-    <!-- SKU3 -->
-    <div class="product">
+    <div class="card" id="card-sku3">
       <h2>Green T-Shirt</h2>
       <p>₹999</p>
-      <a href="product-2.html">View Product</a>
+      <!-- CORRECTED SKU3 link as you requested -->
+      <a href="https://nf2180.github.io/ga4practice.index/product-3" class="prod-link" data-sku="SKU3" data-name="Green T-Shirt">View Product</a>
     </div>
   </div>
 
+  <!-- push a catalog-level dataLayer event -->
   <script>
-    // dataLayer push for catalog view
     window.dataLayer = window.dataLayer || [];
     dataLayer.push({
-      event: "view_item_list",
-      sku_step: "catalog",
+      event: 'view_item_list',
+      sku_step: 'catalog',
       items: [
-        { item_name: "Red Hoodie", item_id: "SKU1", price: 1299 },
-        { item_name: "Training Shoes", item_id: "SKU2", price: 2499 },
-        { item_name: "Green T-Shirt", item_id: "SKU3", price: 999 }
+        { item_id: 'SKU1', item_name: 'Red Hoodie', price: 1299 },
+        { item_id: 'SKU2', item_name: 'Training Shoes', price: 2499 },
+        { item_id: 'SKU3', item_name: 'Green T-Shirt', price: 999 }
       ]
     });
-    console.log("catalog view_item_list pushed (SKU2 link -> product-2)");
+
+    // Push sku_click when user clicks the link so GTM sees sku_step on navigation
+    document.querySelectorAll('.prod-link').forEach(function(link){
+      link.addEventListener('click', function(e){
+        // push SKU click with sku_step — GTM will pick this up in preview
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'sku_click',
+          sku_step: 'catalog_click',
+          sku_id: this.dataset.sku,
+          sku_name: this.dataset.name,
+          link_target: this.href
+        });
+        // allow normal navigation to proceed
+      });
+    });
+
+    console.log('Catalog loaded — view_item_list pushed and SKU links wired.');
   </script>
 </body>
 </html>
