@@ -2,31 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You</title>
-  <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-TBQZ253G');
-  </script>
+  <title>Thank You | GA4 Practice Store</title>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TBQZ253G');</script>
+  <!-- End Google Tag Manager -->
 </head>
 <body>
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
   <h1>Thank You for Your Purchase!</h1>
+  <p><a href="https://nf2180.github.io/ga4practice.index/index.html">Return Home</a></p>
 
   <script>
-    dataLayer = dataLayer || [];
-    dataLayer.push({
-      event: "purchase",
-      ecommerce: {
-        transaction_id: "T" + Math.floor(Math.random() * 10000),
-        value: 2499,
-        currency: "INR",
-        items: [{ item_name: "Sample Purchased Item", item_id: "SKU-THANKYOU" }]
-      }
-    });
+  dataLayer.push({
+    event: 'thank_you',
+    sku_step: 'thank_you'
+  });
   </script>
 </body>
 </html>
