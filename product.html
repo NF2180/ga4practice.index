@@ -2,38 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Cloud Hoodie | GA4 Practice Store</title>
-  <!-- Google Tag Manager -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Red Hoodie - GA4 + GTM</title>
+
+  <!-- GTM script -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-TBQZ253G');</script>
-  <!-- End Google Tag Manager -->
+
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+  <!-- GTM noscript -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <h1>Cloud Hoodie</h1>
-  <p>Price: ₹49.99</p>
-  <button onclick="addToCart()">Add to Cart</button>
+  <header>
+    <h1>Red Hoodie</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="catalog.html">Catalog</a>
+    </nav>
+  </header>
 
-  <script>
-  dataLayer.push({
-    event: 'view_item',
-    sku_step: 'product_view',
-    items: [{ item_id: 'SKU1', item_name: 'Cloud Hoodie', price: 49.99 }]
-  });
+  <main>
+    <h2>Red Hoodie - ₹49.99</h2>
+    <button onclick="pushEvent('add_to_cart',{id:'SKU1', item_name:'Red Hoodie', price:49.99, sku_step:'add_to_cart'})">
+      Add to Cart
+    </button>
+  </main>
 
-  function addToCart() {
-    dataLayer.push({
-      event: 'add_to_cart',
-      sku_step: 'add_to_cart',
-      items: [{ item_id: 'SKU1', item_name: 'Cloud Hoodie', price: 49.99 }]
-    });
-    window.location.href = 'https://nf2180.github.io/ga4practice.index/checkout.html';
-  }
-  </script>
+  <footer><p>Practice site for GA4 + GTM</p></footer>
+  <script src="assets/js/datalayer.js"></script>
 </body>
 </html>
