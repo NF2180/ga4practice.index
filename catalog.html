@@ -1,90 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Catalog | GA4 Practice</title>
-
+  <meta charset="UTF-8">
+  <title>Catalog | GA4 Practice Store</title>
   <!-- Google Tag Manager -->
-  <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-TBQZ253G');
-  </script>
-  <!-- End GTM -->
-
-  <style>
-    body{font-family:Arial,margin:32px;background:#fafafa}
-    h1{color:#222}
-    .grid{display:flex;gap:20px}
-    .card{background:#fff;padding:16px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.06);width:220px;text-align:center}
-    .card h2{margin:8px 0}
-    .card p{margin:6px 0;color:#333}
-    .card a{display:inline-block;margin-top:8px;padding:8px 12px;background:#007bff;color:#fff;border-radius:6px;text-decoration:none}
-  </style>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TBQZ253G');</script>
+  <!-- End Google Tag Manager -->
 </head>
 <body>
-  <!-- GTM (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- /GTM (noscript) -->
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <h1>Product Catalog</h1>
+  <ul>
+    <li><a href="https://nf2180.github.io/ga4practice.index/product.html">Cloud Hoodie</a></li>
+    <li><a href="https://nf2180.github.io/ga4practice.index/product-2.html">Training Shoes</a></li>
+    <li><a href="https://nf2180.github.io/ga4practice.index/product-3.html">Red Hoodie</a></li>
+  </ul>
 
-  <div class="grid">
-    <div class="card" id="card-sku1">
-      <h2>Red Hoodie</h2>
-      <p>₹1,299</p>
-      <a href="https://nf2180.github.io/ga4practice.index/product.html" class="prod-link" data-sku="SKU1" data-name="Red Hoodie">View Product</a>
-    </div>
-
-    <div class="card" id="card-sku2">
-      <h2>Training Shoes</h2>
-      <p>₹2,499</p>
-      <!-- CORRECTED SKU2 link as you requested -->
-      <a href="https://nf2180.github.io/ga4practice.index/product-2" class="prod-link" data-sku="SKU2" data-name="Training Shoes">View Product</a>
-    </div>
-
-    <div class="card" id="card-sku3">
-      <h2>Green T-Shirt</h2>
-      <p>₹999</p>
-      <!-- CORRECTED SKU3 link as you requested -->
-      <a href="https://nf2180.github.io/ga4practice.index/product-3" class="prod-link" data-sku="SKU3" data-name="Green T-Shirt">View Product</a>
-    </div>
-  </div>
-
-  <!-- push a catalog-level dataLayer event -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    dataLayer.push({
-      event: 'view_item_list',
-      sku_step: 'catalog',
-      items: [
-        { item_id: 'SKU1', item_name: 'Red Hoodie', price: 1299 },
-        { item_id: 'SKU2', item_name: 'Training Shoes', price: 2499 },
-        { item_id: 'SKU3', item_name: 'Green T-Shirt', price: 999 }
-      ]
-    });
-
-    // Push sku_click when user clicks the link so GTM sees sku_step on navigation
-    document.querySelectorAll('.prod-link').forEach(function(link){
-      link.addEventListener('click', function(e){
-        // push SKU click with sku_step — GTM will pick this up in preview
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: 'sku_click',
-          sku_step: 'catalog_click',
-          sku_id: this.dataset.sku,
-          sku_name: this.dataset.name,
-          link_target: this.href
-        });
-        // allow normal navigation to proceed
-      });
-    });
-
-    console.log('Catalog loaded — view_item_list pushed and SKU links wired.');
+  dataLayer.push({
+    event: 'view_item_list',
+    sku_step: 'catalog_view',
+    items: [
+      { item_id: 'SKU1', item_name: 'Cloud Hoodie', price: 49.99 },
+      { item_id: 'SKU2', item_name: 'Training Shoes', price: 69.99 },
+      { item_id: 'SKU3', item_name: 'Red Hoodie', price: 59.99 }
+    ]
+  });
   </script>
 </body>
 </html>
