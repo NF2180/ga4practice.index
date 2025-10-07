@@ -2,26 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout</title>
-  <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-TBQZ253G');
-  </script>
+  <title>Checkout | GA4 Practice Store</title>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TBQZ253G');</script>
+  <!-- End Google Tag Manager -->
 </head>
 <body>
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
   <h1>Checkout</h1>
-  <button onclick="proceedToPurchase()">Proceed to Payment</button>
+  <button onclick="completePurchase()">Complete Purchase</button>
 
   <script>
-    function proceedToPurchase(){
-      dataLayer.push({ event: "begin_checkout" });
-      window.location.href="thank-you.html";
-    }
+  dataLayer.push({
+    event: 'begin_checkout',
+    sku_step: 'checkout',
+    items: [{ item_id: 'SKU1', item_name: 'Cloud Hoodie', price: 49.99 }]
+  });
+
+  function completePurchase() {
+    dataLayer.push({
+      event: 'purchase',
+      sku_step: 'purchase',
+      transaction_id: 'T' + Date.now(),
+      value: 49.99,
+      items: [{ item_id: 'SKU1', item_name: 'Cloud Hoodie', price: 49.99 }]
+    });
+    window.location.href = 'https://nf2180.github.io/ga4practice.index/thank-you.html';
+  }
   </script>
 </body>
 </html>
