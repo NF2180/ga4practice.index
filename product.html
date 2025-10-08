@@ -1,42 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cloud Hoodie</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Product 1 - Red Hoodie</title>
 
-<!-- GTM -->
-<script>
-  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-TBQZ253G');
-</script>
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){
+      w[l]=w[l]||[];
+      w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TBQZ253G');
+  </script>
+  <!-- End Google Tag Manager -->
 
-<link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+
+<!-- Google Tag Manager (noscript) -->
 <noscript>
-  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
+<!-- End GTM (noscript) -->
 
 <header>
-  <h1>Cloud Hoodie</h1>
+  <h1>Product 1 - Red Hoodie</h1>
   <nav>
     <a href="index.html">Home</a>
     <a href="catalog.html">Catalog</a>
+    <a href="checkout.html">Checkout</a>
   </nav>
 </header>
 
 <main>
-  <h2>Cloud Hoodie</h2>
+  <h2>Red Hoodie</h2>
   <p>Price: ₹49.99</p>
-  <button class="add-to-cart-btn" data-sku="SKU1" data-price="49.99">Add to Cart</button>
+  <button id="addToCartBtn">Add to Cart</button>
 </main>
 
-<footer><p>Practice site for GA4 + GTM</p></footer>
+<footer>
+  <p>Practice site for GA4 + GTM</p>
+</footer>
 
 <script src="assets/js/datalayer.js"></script>
+<script>
+  const addToCartBtn = document.getElementById('addToCartBtn');
+
+  addToCartBtn.addEventListener('click', function() {
+    // Fire add_to_cart event
+    pushEvent('add_to_cart', {
+      id: 'SKU1',
+      item_name: 'Red Hoodie',
+      price: 49.99,
+      quantity: 1
+    });
+
+    // Optional: redirect to checkout
+    setTimeout(function() {
+      window.location.href = 'checkout.html';
+    }, 300); // small delay to ensure GTM event fires
+  });
+</script>
+
 </body>
 </html>
