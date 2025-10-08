@@ -1,83 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Product 2 - Training Shoes</title>
-
   <!-- Google Tag Manager -->
   <script>
-    (function(w,d,s,l,i){
-      w[l]=w[l]||[];
-      w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
-      var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:'';
-      j.async=true;
-      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-      f.parentNode.insertBefore(j,f);
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
-  <!-- End GTM -->
-
-  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Training Shoes - SKU2</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
-
+<!-- Google Tag Manager (noscript) -->
 <noscript>
   <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
-          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
+<!-- End GTM (noscript) -->
 
 <header>
-  <h1>Training Shoes</h1>
+  <h1>GA4 + GTM Practice</h1>
   <nav>
-    <a href="index.html">Home</a>
-    <a href="catalog.html">Catalog</a>
-    <a href="checkout.html">Checkout</a>
+    <a href="/index.html">Home</a>
+    <a href="/catalog.html">Catalog</a>
+    <a href="/product.html">Product 1</a>
+    <a href="/product-2.html">Product 2</a>
+    <a href="/product-3.html">Product 3</a>
+    <a href="/checkout.html">Checkout</a>
+    <a href="/thank-you.html">Thank You</a>
   </nav>
 </header>
 
 <main>
-  <h2>Training Shoes</h2>
-  <p>Price: ₹89.99</p>
-  <button id="addToCartBtn">Add to Cart</button>
+  <h2>Training Shoes - ₹69.99</h2>
+  <p>SKU2 - Comfortable Training Shoes</p>
+  <button id="add-to-cart-btn">Add to Cart</button>
 </main>
 
-<footer>
-  <p>Practice site for GA4 + GTM</p>
-</footer>
+<footer><p>Practice site for GA4 + GTM</p></footer>
 
-<!-- Load dataLayer first -->
-<script src="assets/js/datalayer.js"></script>
-
-<!-- Ensure event listener runs AFTER page load -->
+<script src="/assets/js/datalayer.js"></script>
 <script>
-  window.addEventListener('load', function() {
-    const addToCartBtn = document.getElementById('addToCartBtn');
-
-    if (!addToCartBtn) {
-      console.error('Add to Cart button not found');
-      return;
+  // Push view_item event on page load
+  window.dataLayer = window.dataLayer || [];
+  dataLayer.push({
+    event: 'view_item',
+    ecommerce: {
+      items: [{
+        item_id: 'SKU2',
+        item_name: 'Training Shoes',
+        price: 69.99,
+        currency: 'INR'
+      }]
     }
+  });
 
-    addToCartBtn.addEventListener('click', function() {
-      if (typeof pushEvent === 'function') {
-        pushEvent('add_to_cart', {
-          id: 'SKU2',
+  // Add to Cart button click
+  document.getElementById('add-to-cart-btn').addEventListener('click', function(){
+    dataLayer.push({
+      event: 'add_to_cart',
+      ecommerce: {
+        items: [{
+          item_id: 'SKU2',
           item_name: 'Training Shoes',
-          price: 89.99,
+          price: 69.99,
+          currency: 'INR',
           quantity: 1
-        });
-        console.log('add_to_cart fired for SKU2');
-
-        // Delay redirect to allow GTM to pick up event
-        setTimeout(function() {
-          window.location.href = 'checkout.html';
-        }, 1000);
-      } else {
-        console.error('pushEvent is not defined yet.');
+        }]
       }
     });
+    // Optional: redirect to checkout page after add to cart
+    window.location.href = '/checkout.html';
   });
 </script>
 
