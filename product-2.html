@@ -47,31 +47,37 @@
   <p>Practice site for GA4 + GTM</p>
 </footer>
 
+<!-- Load dataLayer first -->
 <script src="assets/js/datalayer.js"></script>
 
+<!-- Ensure event listener runs AFTER page load -->
 <script>
-  const addToCartBtn = document.getElementById('addToCartBtn');
+  window.addEventListener('load', function() {
+    const addToCartBtn = document.getElementById('addToCartBtn');
 
-  addToCartBtn.addEventListener('click', function(e) {
-    e.preventDefault(); // Stop immediate redirect
-
-    if (typeof pushEvent === 'function') {
-      pushEvent('add_to_cart', {
-        id: 'SKU2',
-        item_name: 'Training Shoes',
-        price: 89.99,
-        quantity: 1
-      });
-
-      console.log('add_to_cart pushed for SKU2');
-
-      setTimeout(function() {
-        window.location.href = 'checkout.html';
-      }, 1000); // 1 second delay to ensure GTM registers event
-
-    } else {
-      console.error('pushEvent not defined');
+    if (!addToCartBtn) {
+      console.error('Add to Cart button not found');
+      return;
     }
+
+    addToCartBtn.addEventListener('click', function() {
+      if (typeof pushEvent === 'function') {
+        pushEvent('add_to_cart', {
+          id: 'SKU2',
+          item_name: 'Training Shoes',
+          price: 89.99,
+          quantity: 1
+        });
+        console.log('add_to_cart fired for SKU2');
+
+        // Delay redirect to allow GTM to pick up event
+        setTimeout(function() {
+          window.location.href = 'checkout.html';
+        }, 1000);
+      } else {
+        console.error('pushEvent is not defined yet.');
+      }
+    });
   });
 </script>
 
