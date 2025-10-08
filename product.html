@@ -17,18 +17,17 @@
       f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
-  <!-- End Google Tag Manager -->
+  <!-- End GTM -->
 
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<!-- Google Tag Manager (noscript) -->
+<!-- GTM (noscript) -->
 <noscript>
   <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
           height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
-<!-- End GTM (noscript) -->
 
 <header>
   <h1>Product 1 - Red Hoodie</h1>
@@ -49,23 +48,31 @@
   <p>Practice site for GA4 + GTM</p>
 </footer>
 
+<!-- Load datalayer.js before custom scripts -->
 <script src="assets/js/datalayer.js"></script>
 <script>
+  // Add to Cart functionality
   const addToCartBtn = document.getElementById('addToCartBtn');
 
-  addToCartBtn.addEventListener('click', function() {
-    // Fire add_to_cart event
-    pushEvent('add_to_cart', {
-      id: 'SKU1',
-      item_name: 'Red Hoodie',
-      price: 49.99,
-      quantity: 1
-    });
+  addToCartBtn.addEventListener('click', function(e) {
+    e.preventDefault(); // Prevent immediate redirect
 
-    // Optional: redirect to checkout
+    if (typeof pushEvent === 'function') {
+      pushEvent('add_to_cart', {
+        id: 'SKU1',
+        item_name: 'Red Hoodie',
+        price: 49.99,
+        quantity: 1
+      });
+      console.log('add_to_cart pushed'); // confirmation in console
+    } else {
+      console.error('pushEvent not defined');
+    }
+
+    // Small delay to ensure GTM event fires before redirect
     setTimeout(function() {
       window.location.href = 'checkout.html';
-    }, 300); // small delay to ensure GTM event fires
+    }, 500);
   });
 </script>
 
