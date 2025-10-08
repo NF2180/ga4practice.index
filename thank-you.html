@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Thank You | GA4 Practice Store</title>
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-TBQZ253G');</script>
-  <!-- End Google Tag Manager -->
+<!-- GTM code -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Thank You</title>
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
-  <h1>Thank You for Your Purchase!</h1>
-  <p><a href="https://nf2180.github.io/ga4practice.index/index.html">Return Home</a></p>
-
-  <script>
-  dataLayer.push({
-    event: 'thank_you',
-    sku_step: 'thank_you'
-  });
-  </script>
+<header>
+<h1>Thank You</h1>
+<nav>
+<a href="index.html">Home</a>
+<a href="catalog.html">Catalog</a>
+</nav>
+</header>
+<main>
+<h2>Thank you for your purchase!</h2>
+<script>
+pushEvent('purchase',{transaction_id:'T-TEST-123',value:198.97,currency:'INR',items:[{id:'SKU1',price:49.99},{id:'SKU2',price:79.99},{id:'SKU3',price:69.99}]})
+</script>
+</main>
+<footer><p>Practice site for GA4 + GTM</p></footer>
+<script src="assets/js/datalayer.js"></script>
 </body>
 </html>
