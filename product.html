@@ -52,28 +52,31 @@
 <script src="assets/js/datalayer.js"></script>
 
 <script>
-  // Add to Cart event listener
+  // Add to Cart event listener with guaranteed firing
   const addToCartBtn = document.getElementById('addToCartBtn');
 
   addToCartBtn.addEventListener('click', function(e) {
     e.preventDefault(); // Prevent immediate redirect
 
     if (typeof pushEvent === 'function') {
+      // Push add_to_cart to GTM
       pushEvent('add_to_cart', {
         id: 'SKU1',
         item_name: 'Red Hoodie',
         price: 49.99,
         quantity: 1
       });
-      console.log('add_to_cart pushed'); // Confirmation
+
+      console.log('add_to_cart pushed');
+
+      // Delay to ensure GTM/GA4 registers event before navigation
+      setTimeout(function() {
+        window.location.href = 'checkout.html';
+      }, 1000); // 1 second delay
+
     } else {
       console.error('pushEvent not defined');
     }
-
-    // Delay to ensure GTM event fires before redirect
-    setTimeout(function() {
-      window.location.href = 'checkout.html';
-    }, 500);
   });
 </script>
 
