@@ -3,14 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Home</title>
+  <title>GA4 + GTM Practice Homepage</title>
 
   <!-- Google Tag Manager -->
   <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    (function(w,d,s,l,i){
+      w[l]=w[l]||[];
+      w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
   <!-- End Google Tag Manager -->
@@ -18,30 +22,39 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
-  <!-- End GTM noscript -->
 
-  <header>
-    <h1>Home Page</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="catalog.html">Catalog</a>
-      <a href="checkout.html">Checkout</a>
-      <a href="thank-you.html">Thank You</a>
-    </nav>
-  </header>
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End GTM (noscript) -->
 
-  <main>
-    <h2>Welcome to GA4 + GTM Practice Site</h2>
-    <p>Click Catalog to view products.</p>
-  </main>
+<header>
+  <h1>GA4 + GTM Practice</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="catalog.html">Catalog</a>
+    <a href="product.html">Product 1</a>
+    <a href="product-2.html">Product 2</a>
+    <a href="product-3.html">Product 3</a>
+    <a href="checkout.html">Checkout</a>
+    <a href="thank-you.html">Thank You</a>
+  </nav>
+</header>
 
-  <footer><p>Practice site for GA4 + GTM</p></footer>
+<main>
+  <h2>Welcome to the GA4 + GTM Practice Homepage</h2>
+  <p>Click through the catalog and products to test tracking.</p>
+  <a href="catalog.html">Go to Catalog</a>
+</main>
 
-  <script src="assets/js/datalayer.js"></script>
+<footer>
+  <p>Practice site for GA4 + GTM</p>
+</footer>
+
+<!-- Datalayer JS -->
+<script src="assets/js/datalayer.js"></script>
+
 </body>
 </html>
