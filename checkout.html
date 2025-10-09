@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout</title>
+
+  <!-- GTM Head -->
   <script>
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -9,37 +13,65 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
-  <!-- End Google Tag Manager -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Checkout</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- End GTM Head -->
 </head>
+
 <body>
-  <!-- Google Tag Manager (noscript) -->
+  <!-- GTM Body -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
+  <!-- End GTM Body -->
 
-  <header>
-    <h1>Checkout</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="catalog.html">Catalog</a>
-      <a href="product.html">Product</a>
-      <a href="checkout.html">Checkout</a>
-      <a href="thank-you.html">Thank You</a>
-    </nav>
-  </header>
+  <h1>Checkout Page</h1>
+  <p>Please confirm your purchase details below:</p>
 
-  <main>
-    <h2>Checkout Page</h2>
-    <p>Proceed with your purchase</p>
-    <button onclick="pushEvent('begin_checkout', {transaction_id:'T-TEST-12345', value:49.99, currency:'INR', items:[{id:'SKU1', price:49.99}]})">Begin Checkout</button>
-    <button onclick="location.href='thank-you.html'">Complete Purchase</button>
-  </main>
+  <div id="cartSummary">
+    <p><strong>Item:</strong> <span id="itemName">Loading...</span></p>
+    <p><strong>Price:</strong> ₹<span id="itemPrice">0</span></p>
+    <button id="completePurchaseBtn">Complete Purchase</button>
+  </div>
 
-  <footer><p>Practice site for GA4 + GTM</p></footer>
-  <script src="assets/js/datalayer.js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    // Retrieve last product from sessionStorage (sent by Add to Cart)
+    const item = JSON.parse(sessionStorage.getItem("lastItem")) || {
+      item_name: "Unknown Item",
+      item_id: "SKU-UNKNOWN",
+      price: 0,
+      item_category: "Unknown",
+      currency: "INR"
+    };
+
+    // Populate checkout summary
+    document.getElementById("itemName").textContent = item.item_name;
+    document.getElementById("itemPrice").textContent = item.price;
+
+    // Fire begin_checkout event
+    window.dataLayer.push({
+      event: "begin_checkout",
+      ecommerce: {
+        items: [item]
+      }
+    });
+
+    // Complete purchase button click
+    document.getElementById("completePurchaseBtn").addEventListener("click", function() {
+      window.dataLayer.push({
+        event: "purchase",
+        ecommerce: {
+          transaction_id: "T" + Date.now(),
+          value: item.price,
+          currency: item.currency,
+          items: [item]
+        }
+      });
+
+      // Redirect to Thank You page
+      setTimeout(function() {
+        window.location.href = "thank-you.html";
+      }, 1000);
+    });
+  </script>
 </body>
 </html>
