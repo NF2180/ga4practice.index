@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Training Shoes</title>
+
+  <!-- GTM Head -->
   <script>
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -9,35 +13,62 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
-  <!-- End Google Tag Manager -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Training Shoes</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- End GTM Head -->
 </head>
+
 <body>
-  <!-- Google Tag Manager (noscript) -->
+  <!-- GTM Body -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
+  <!-- End GTM Body -->
 
-  <header>
-    <h1>GA4 + GTM Practice</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="catalog.html">Catalog</a>
-      <a href="product.html">Product</a>
-      <a href="checkout.html">Checkout</a>
-      <a href="thank-you.html">Thank You</a>
-    </nav>
-  </header>
+  <h1>Training Shoes</h1>
+  <img src="assets/images/shoes.jpg" alt="Training Shoes" width="300" />
+  <p>Price: ₹2,499</p>
+  <p>Comfortable running and gym shoes built for performance.</p>
 
-  <main>
-    <h2>Training Shoes - ₹59.99</h2>
-    <button onclick="pushEvent('add_to_cart', {id:'SKU3', price:59.99})">Add to Cart</button>
-  </main>
+  <button id="addToCartBtn">Add to Cart</button>
 
-  <footer><p>Practice site for GA4 + GTM</p></footer>
-  <script src="assets/js/datalayer.js"></script>
+  <script>
+    // View Item Event
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "view_item",
+      ecommerce: {
+        items: [
+          {
+            item_name: "Training Shoes",
+            item_id: "SKU3",
+            price: 2499,
+            item_category: "Footwear",
+            currency: "INR"
+          }
+        ]
+      }
+    });
+
+    // Add to Cart Event on Button Click
+    document.getElementById("addToCartBtn").addEventListener("click", function() {
+      window.dataLayer.push({
+        event: "add_to_cart",
+        ecommerce: {
+          items: [
+            {
+              item_name: "Training Shoes",
+              item_id: "SKU3",
+              price: 2499,
+              item_category: "Footwear",
+              currency: "INR"
+            }
+          ]
+        }
+      });
+
+      // Redirect to checkout after 1 second
+      setTimeout(function() {
+        window.location.href = "checkout.html";
+      }, 1000);
+    });
+  </script>
 </body>
 </html>
