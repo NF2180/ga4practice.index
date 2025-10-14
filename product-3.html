@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Green Sneakers - SKU3</title>
+  <title>Green Hoodie - SKU3</title>
 
   <!-- GTM -->
   <script>
@@ -13,47 +13,43 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
-
-  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <h1>Green Sneakers</h1>
-  <p>Price: ₹59.99</p>
+  <h1>Green Hoodie</h1>
+  <p>Price: ₹1699</p>
   <button id="addToCartBtn">Add to Cart</button>
 
   <script src="assets/js/datalayer.js"></script>
   <script>
-    // Page view
     pushEvent('view_item', {
       ecommerce: {
         items: [{
           item_id: 'SKU3',
-          item_name: 'Green Sneakers',
-          price: 59.99,
+          item_name: 'Green Hoodie',
+          price: 1699,
           currency: 'INR',
-          item_category: 'Footwear'
+          item_category: 'Apparel'
         }]
       }
     });
 
-    // Add to cart click
     document.getElementById('addToCartBtn').addEventListener('click', function(){
       var item = {
         item_id: 'SKU3',
-        item_name: 'Green Sneakers',
-        price: 59.99,
+        item_name: 'Green Hoodie',
+        price: 1699,
         currency: 'INR',
         quantity: 1,
-        item_category: 'Footwear'
+        item_category: 'Apparel'
       };
 
       pushEvent('add_to_cart', { ecommerce: { items: [item] } });
       storeLastItemForCheckout(item);
 
-      setTimeout(function(){ window.location.href = 'checkout.html'; }, 900);
+      setTimeout(function(){ window.location.href = 'checkout.html'; }, 800);
     });
   </script>
 </body>
