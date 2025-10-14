@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Tag Manager -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Training Shoes - SKU2</title>
+
+  <!-- GTM -->
   <script>
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -9,75 +13,49 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
-  <!-- End Google Tag Manager -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Training Shoes - SKU2</title>
-  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript>
-  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
-<!-- End GTM (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<header>
-  <h1>GA4 + GTM Practice</h1>
-  <nav>
-    <a href="/index.html">Home</a>
-    <a href="/catalog.html">Catalog</a>
-    <a href="/product.html">Product 1</a>
-    <a href="/product-2.html">Product 2</a>
-    <a href="/product-3.html">Product 3</a>
-    <a href="/checkout.html">Checkout</a>
-    <a href="/thank-you.html">Thank You</a>
-  </nav>
-</header>
+  <h1>Training Shoes</h1>
+  <p>Price: ₹69.99</p>
+  <button id="addToCartBtn">Add to Cart</button>
 
-<main>
-  <h2>Training Shoes - ₹69.99</h2>
-  <p>SKU2 - Comfortable Training Shoes</p>
-  <button id="add-to-cart-btn">Add to Cart</button>
-</main>
-
-<footer><p>Practice site for GA4 + GTM</p></footer>
-
-<script src="/assets/js/datalayer.js"></script>
-<script>
-  // Push view_item event on page load
-  window.dataLayer = window.dataLayer || [];
-  dataLayer.push({
-    event: 'view_item',
-    ecommerce: {
-      items: [{
-        item_id: 'SKU2',
-        item_name: 'Training Shoes',
-        price: 69.99,
-        currency: 'INR'
-      }]
-    }
-  });
-
-  // Add to Cart button click
-  document.getElementById('add-to-cart-btn').addEventListener('click', function(){
-    dataLayer.push({
-      event: 'add_to_cart',
+  <script src="assets/js/datalayer.js"></script>
+  <script>
+    // Page view
+    pushEvent('view_item', {
       ecommerce: {
         items: [{
           item_id: 'SKU2',
           item_name: 'Training Shoes',
           price: 69.99,
           currency: 'INR',
-          quantity: 1
+          item_category: 'Footwear'
         }]
       }
     });
-    // Optional: redirect to checkout page after add to cart
-    window.location.href = '/checkout.html';
-  });
-</script>
 
+    // Add to cart click
+    document.getElementById('addToCartBtn').addEventListener('click', function(){
+      var item = {
+        item_id: 'SKU2',
+        item_name: 'Training Shoes',
+        price: 69.99,
+        currency: 'INR',
+        quantity: 1,
+        item_category: 'Footwear'
+      };
+
+      pushEvent('add_to_cart', { ecommerce: { items: [item] } });
+      storeLastItemForCheckout(item);
+
+      // small delay before checkout navigation
+      setTimeout(function(){ window.location.href = 'checkout.html'; }, 900);
+    });
+  </script>
 </body>
 </html>
