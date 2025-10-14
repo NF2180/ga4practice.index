@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Checkout</title>
 
@@ -13,8 +13,6 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
-
-  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
@@ -29,8 +27,6 @@
 
   <script src="assets/js/datalayer.js"></script>
   <script>
-    // read last item from sessionStorage (written by product pages)
-    window.dataLayer = window.dataLayer || [];
     var last = sessionStorage.getItem('lastItem');
     var item = last ? JSON.parse(last) : null;
 
@@ -38,18 +34,15 @@
       document.getElementById('itemName').textContent = item.item_name || item.itemName || item.item_id;
       document.getElementById('itemPrice').textContent = item.price || 0;
 
-      // fire begin_checkout with ecommerce.items
       pushEvent('begin_checkout', {
         ecommerce: {
           items: [ item ]
         }
       });
     } else {
-      // fallback: if no item, push begin_checkout without items (still useful)
       pushEvent('begin_checkout', { ecommerce: { items: [] } });
     }
 
-    // Complete purchase
     document.getElementById('completePurchaseBtn').addEventListener('click', function(){
       var txnId = 'T-' + Date.now();
       pushEvent('purchase', {
@@ -61,7 +54,9 @@
         }
       });
 
-      // redirect to thank you after a short delay
+      // Save txnId maybe for thank-you if you need to show it
+      sessionStorage.setItem('lastTransactionId', txnId);
+
       setTimeout(function(){ window.location.href = 'thank-you.html'; }, 900);
     });
   </script>
