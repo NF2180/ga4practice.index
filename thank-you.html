@@ -1,37 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Thank You</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You - SKU1 Purchase</title>
 
-  <!-- GTM -->
+  <!-- Initialize Data Layer with Purchase Info -->
   <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-TBQZ253G');
+    window.dataLayer = window.dataLayer || [];
+
+    // Push purchase data BEFORE GTM loads
+    window.dataLayer.push({
+      event: "purchase",
+      transaction_id: "TXN-98765-SKU1",
+      value: 1499.00,
+      currency: "INR",
+      items: [{
+        item_id: "SKU1",
+        item_name: "Red Hoodie",
+        price: 1499.00,
+        quantity: 1
+      }],
+      list_name: "Bestsellers",
+      sku_step: "thank_you"
+    });
   </script>
 
+  <!-- Load GTM -->
+  <script>
+    (function(w,d,s,l,i){
+      w[l]=w[l]||[];
+      w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),
+          dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TBQZ253G');
+  </script>
 </head>
 <body>
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <h1>Thank You for Your Purchase!</h1>
+  <p>Your Red Hoodie will be shipped soon!</p>
 
-  <h1>Thank You — Order Received</h1>
-  <p>Your purchase was successful.</p>
-
-  <script src="assets/js/datalayer.js"></script>
+  <!-- Trigger thank_you after purchase event -->
   <script>
-    // read lastItem and push thank_you for GA4
-    var last = sessionStorage.getItem('lastItem');
-    var item = last ? JSON.parse(last) : null;
-
-    pushEvent('thank_you', {
-      ecommerce: {
-        items: item ? [ item ] : []
-      }
+    dataLayer.push({
+      event: "thank_you"
     });
   </script>
 </body>
