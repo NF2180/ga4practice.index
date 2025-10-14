@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thank You - Order Successful</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Thank You</title>
 
-  <!-- GTM Head -->
+  <!-- GTM -->
   <script>
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -13,42 +13,24 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
-  <!-- End GTM Head -->
-</head>
 
+</head>
 <body>
-  <!-- GTM Body -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End GTM Body -->
 
-  <h1>🎉 Thank You for Your Purchase!</h1>
-  <p>Your order has been successfully placed.</p>
+  <h1>Thank You — Order Received</h1>
+  <p>Your purchase was successful.</p>
 
-  <div id="orderDetails"></div>
-
+  <script src="assets/js/datalayer.js"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
+    // read lastItem and push thank_you for GA4
+    var last = sessionStorage.getItem('lastItem');
+    var item = last ? JSON.parse(last) : null;
 
-    // Retrieve the last purchased item (if any)
-    const item = JSON.parse(sessionStorage.getItem("lastItem")) || {
-      item_name: "Unknown Item",
-      item_id: "SKU-UNKNOWN",
-      price: 0,
-      currency: "INR"
-    };
-
-    // Display confirmation
-    document.getElementById("orderDetails").innerHTML = `
-      <p><strong>Item:</strong> ${item.item_name}</p>
-      <p><strong>Price:</strong> ₹${item.price}</p>
-    `;
-
-    // Fire thank_you event for GA4 validation
-    window.dataLayer.push({
-      event: "thank_you",
+    pushEvent('thank_you', {
       ecommerce: {
-        items: [item]
+        items: item ? [ item ] : []
       }
     });
   </script>
