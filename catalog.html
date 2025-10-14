@@ -1,35 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Catalog</title>
-
-  <!-- GTM -->
-  <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-TBQZ253G');
-  </script>
-
-  <link rel="stylesheet" href="assets/css/style.css">
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TBQZ253G');</script>
 </head>
 <body>
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
-  <header><h1>Catalog</h1></header>
-  <main>
-    <ul>
-      <li><a href="product.html">Red Hoodie - ₹49.99 (SKU1)</a></li>
-      <li><a href="product-2.html">Training Shoes - ₹69.99 (SKU2)</a></li>
-      <li><a href="product-3.html">Green Sneakers - ₹59.99 (SKU3)</a></li>
-    </ul>
-  </main>
-
-  <footer><p>Practice site for GA4 + GTM</p></footer>
+  <h1>Catalog</h1>
+  <ul>
+    <li><a href="product1.html?sku=SKU1&name=Red%20Hoodie&price=1499">Red Hoodie - ₹1499</a></li>
+    <li><a href="product2.html?sku=SKU2&name=Blue%20Hoodie&price=1599">Blue Hoodie - ₹1599</a></li>
+    <li><a href="product3.html?sku=SKU3&name=Green%20Hoodie&price=1699">Green Hoodie - ₹1699</a></li>
+  </ul>
 
   <script src="assets/js/datalayer.js"></script>
 </body>
