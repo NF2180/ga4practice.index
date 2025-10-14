@@ -1,29 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Catalog</title>
-
-  <!-- GTM -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catalog - GA4 Practice Store</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-TBQZ253G"></script>
   <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-TBQZ253G');
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "page_view",
+      page_title: "Catalog",
+      page_location: window.location.href,
+      page_path: window.location.pathname
+    });
   </script>
 </head>
 <body>
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
-  <h1>Catalog</h1>
-  <ul>
-    <li><a href="product.html">Red Hoodie - ₹1499 (SKU1)</a></li>
-    <li><a href="product-2.html">Blue Hoodie - ₹1599 (SKU2)</a></li>
-    <li><a href="product-3.html">Green Hoodie - ₹1699 (SKU3)</a></li>
-  </ul>
+  <header>
+    <h1>GA4 Practice Store - Catalog</h1>
+    <nav>
+      <a href="https://nf2180.github.io/ga4practice.index/">Home</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="catalog">
+      <h2>Our Products</h2>
+      <div class="product-list">
+        <!-- ✅ SKU 1 -->
+        <div class="product">
+          <img src="assets/images/red-hoodie.jpg" alt="Red Hoodie" />
+          <h3>Red Hoodie</h3>
+          <p>₹1,499</p>
+          <a href="https://nf2180.github.io/ga4practice.index/product.html">View Product</a>
+        </div>
+
+        <!-- ✅ SKU 2 -->
+        <div class="product">
+          <img src="assets/images/blue-hoodie.jpg" alt="Blue Hoodie" />
+          <h3>Blue Hoodie</h3>
+          <p>₹1,599</p>
+          <a href="https://nf2180.github.io/ga4practice.index/product-2.html">View Product</a>
+        </div>
+
+        <!-- ✅ SKU 3 -->
+        <div class="product">
+          <img src="assets/images/green-hoodie.jpg" alt="Green Hoodie" />
+          <h3>Green Hoodie</h3>
+          <p>₹1,699</p>
+          <a href="https://nf2180.github.io/ga4practice.index/product-3.html">View Product</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <script src="assets/js/datalayer.js"></script>
 </body>
