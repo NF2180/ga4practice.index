@@ -1,54 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You - SKU1 Purchase</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Thank You</title>
 
-  <!-- Initialize Data Layer with Purchase Info -->
   <script>
+    // build purchase payload from sessionStorage BEFORE GTM loads
     window.dataLayer = window.dataLayer || [];
+    (function() {
+      try {
+        var lastRaw = sessionStorage.getItem('lastItem');
+        var lastItem = lastRaw ? JSON.parse(lastRaw) : null;
+        var txnId = sessionStorage.getItem('lastTransactionId') || ('T-' + Date.now());
 
-    // Push purchase data BEFORE GTM loads
-    window.dataLayer.push({
-      event: "purchase",
-      transaction_id: "TXN-98765-SKU1",
-      value: 1499.00,
-      currency: "INR",
-      items: [{
-        item_id: "SKU1",
-        item_name: "Red Hoodie",
-        price: 1499.00,
-        quantity: 1
-      }],
-      list_name: "Bestsellers",
-      sku_step: "thank_you"
-    });
+        if (lastItem) {
+          window.dataLayer.push({
+            event: "purchase",
+            transaction_id: txnId,
+            value: lastItem.price || 0,
+            currency: lastItem.currency || 'INR',
+            items: [ lastItem ],
+            sku_step: "purchase"
+          });
+        } else {
+          // fallback push so GTM has something
+          window.dataLayer.push({
+            event: "purchase",
+            transaction_id: txnId,
+            value: 0,
+            currency: 'INR',
+            items: [],
+            sku_step: "purchase"
+          });
+        }
+      } catch(e) {
+        console.warn('thank-you page purchase push error', e);
+        window.dataLayer.push({ event: "purchase", sku_step: "purchase" });
+      }
+    })();
   </script>
 
-  <!-- Load GTM -->
+  <!-- Now load GTM -->
   <script>
-    (function(w,d,s,l,i){
-      w[l]=w[l]||[];
-      w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
-      var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),
-          dl=l!='dataLayer'?'&l='+l:'';
-      j.async=true;
-      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-      f.parentNode.insertBefore(j,f);
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
 </head>
 <body>
-  <h1>Thank You for Your Purchase!</h1>
-  <p>Your Red Hoodie will be shipped soon!</p>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <!-- Trigger thank_you after purchase event -->
+  <h1>Thank You — Order Confirmed</h1>
+  <div id="orderInfo"></div>
+
+  <script src="assets/js/datalayer.js"></script>
   <script>
-    dataLayer.push({
-      event: "thank_you"
-    });
+    // push a separate thank_you event AFTER GTM loads so tags can respond
+    dataLayer.push({ event: 'thank_you' });
+
+    // display the purchased item details on the page
+    (function(){
+      try {
+        var lastRaw = sessionStorage.getItem('lastItem');
+        var lastItem = lastRaw ? JSON.parse(lastRaw) : null;
+        var txnId = sessionStorage.getItem('lastTransactionId') || ('T-' + Date.now());
+        var el = document.getElementById('orderInfo');
+        if (lastItem) {
+          el.innerHTML = '<p>Item: ' + (lastItem.item_name || lastItem.itemName || lastItem.item_id) + '</p>'
+            + '<p>Price: ₹' + (lastItem.price || 0) + '</p>'
+            + '<p>Transaction ID: ' + txnId + '</p>';
+        } else {
+          el.innerHTML = '<p>No item information found.</p>';
+        }
+      } catch(e) {
+        console.warn('display order info error', e);
+      }
+    })();
   </script>
 </body>
 </html>
