@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Training Shoes</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Green Sneakers - SKU3</title>
 
-  <!-- GTM Head -->
+  <!-- GTM -->
   <script>
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -13,61 +13,47 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
-  <!-- End GTM Head -->
-</head>
 
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
 <body>
-  <!-- GTM Body -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End GTM Body -->
 
-  <h1>Training Shoes</h1>
-  <img src="assets/images/shoes.jpg" alt="Training Shoes" width="300" />
-  <p>Price: ₹2,499</p>
-  <p>Comfortable running and gym shoes built for performance.</p>
-
+  <h1>Green Sneakers</h1>
+  <p>Price: ₹59.99</p>
   <button id="addToCartBtn">Add to Cart</button>
 
+  <script src="assets/js/datalayer.js"></script>
   <script>
-    // View Item Event
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "view_item",
+    // Page view
+    pushEvent('view_item', {
       ecommerce: {
-        items: [
-          {
-            item_name: "Training Shoes",
-            item_id: "SKU3",
-            price: 2499,
-            item_category: "Footwear",
-            currency: "INR"
-          }
-        ]
+        items: [{
+          item_id: 'SKU3',
+          item_name: 'Green Sneakers',
+          price: 59.99,
+          currency: 'INR',
+          item_category: 'Footwear'
+        }]
       }
     });
 
-    // Add to Cart Event on Button Click
-    document.getElementById("addToCartBtn").addEventListener("click", function() {
-      window.dataLayer.push({
-        event: "add_to_cart",
-        ecommerce: {
-          items: [
-            {
-              item_name: "Training Shoes",
-              item_id: "SKU3",
-              price: 2499,
-              item_category: "Footwear",
-              currency: "INR"
-            }
-          ]
-        }
-      });
+    // Add to cart click
+    document.getElementById('addToCartBtn').addEventListener('click', function(){
+      var item = {
+        item_id: 'SKU3',
+        item_name: 'Green Sneakers',
+        price: 59.99,
+        currency: 'INR',
+        quantity: 1,
+        item_category: 'Footwear'
+      };
 
-      // Redirect to checkout after 1 second
-      setTimeout(function() {
-        window.location.href = "checkout.html";
-      }, 1000);
+      pushEvent('add_to_cart', { ecommerce: { items: [item] } });
+      storeLastItemForCheckout(item);
+
+      setTimeout(function(){ window.location.href = 'checkout.html'; }, 900);
     });
   </script>
 </body>
