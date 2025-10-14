@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Checkout</title>
 
-  <!-- GTM Head -->
+  <!-- GTM -->
   <script>
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -13,64 +13,56 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
-  <!-- End GTM Head -->
-</head>
 
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
 <body>
-  <!-- GTM Body -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End GTM Body -->
 
-  <h1>Checkout Page</h1>
-  <p>Please confirm your purchase details below:</p>
-
-  <div id="cartSummary">
-    <p><strong>Item:</strong> <span id="itemName">Loading...</span></p>
-    <p><strong>Price:</strong> ₹<span id="itemPrice">0</span></p>
+  <h1>Checkout</h1>
+  <div id="summary">
+    <p>Item: <span id="itemName">—</span></p>
+    <p>Price: ₹<span id="itemPrice">0</span></p>
     <button id="completePurchaseBtn">Complete Purchase</button>
   </div>
 
+  <script src="assets/js/datalayer.js"></script>
   <script>
+    // read last item from sessionStorage (written by product pages)
     window.dataLayer = window.dataLayer || [];
+    var last = sessionStorage.getItem('lastItem');
+    var item = last ? JSON.parse(last) : null;
 
-    // Retrieve last product from sessionStorage (sent by Add to Cart)
-    const item = JSON.parse(sessionStorage.getItem("lastItem")) || {
-      item_name: "Unknown Item",
-      item_id: "SKU-UNKNOWN",
-      price: 0,
-      item_category: "Unknown",
-      currency: "INR"
-    };
+    if (item) {
+      document.getElementById('itemName').textContent = item.item_name || item.itemName || item.item_id;
+      document.getElementById('itemPrice').textContent = item.price || 0;
 
-    // Populate checkout summary
-    document.getElementById("itemName").textContent = item.item_name;
-    document.getElementById("itemPrice").textContent = item.price;
-
-    // Fire begin_checkout event
-    window.dataLayer.push({
-      event: "begin_checkout",
-      ecommerce: {
-        items: [item]
-      }
-    });
-
-    // Complete purchase button click
-    document.getElementById("completePurchaseBtn").addEventListener("click", function() {
-      window.dataLayer.push({
-        event: "purchase",
+      // fire begin_checkout with ecommerce.items
+      pushEvent('begin_checkout', {
         ecommerce: {
-          transaction_id: "T" + Date.now(),
-          value: item.price,
-          currency: item.currency,
-          items: [item]
+          items: [ item ]
+        }
+      });
+    } else {
+      // fallback: if no item, push begin_checkout without items (still useful)
+      pushEvent('begin_checkout', { ecommerce: { items: [] } });
+    }
+
+    // Complete purchase
+    document.getElementById('completePurchaseBtn').addEventListener('click', function(){
+      var txnId = 'T-' + Date.now();
+      pushEvent('purchase', {
+        ecommerce: {
+          transaction_id: txnId,
+          value: (item && item.price) || 0,
+          currency: (item && item.currency) || 'INR',
+          items: item ? [ item ] : []
         }
       });
 
-      // Redirect to Thank You page
-      setTimeout(function() {
-        window.location.href = "thank-you.html";
-      }, 1000);
+      // redirect to thank you after a short delay
+      setTimeout(function(){ window.location.href = 'thank-you.html'; }, 900);
     });
   </script>
 </body>
