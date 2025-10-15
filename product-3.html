@@ -24,11 +24,7 @@
 
   <script src="assets/js/datalayer.js"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-
-    // View Item
     pushEvent('view_item', {
-      sku_step: 'view_item',
       ecommerce: {
         items: [{
           item_id: 'SKU3',
@@ -40,7 +36,6 @@
       }
     });
 
-    // Add to Cart
     document.getElementById('addToCartBtn').addEventListener('click', function(){
       var item = {
         item_id: 'SKU3',
@@ -51,11 +46,7 @@
         item_category: 'Apparel'
       };
 
-      pushEvent('add_to_cart', {
-        sku_step: 'add_to_cart',
-        ecommerce: { items: [item] }
-      });
-
+      pushEvent('add_to_cart', { ecommerce: { items: [item] } });
       storeLastItemForCheckout(item);
 
       setTimeout(function(){ window.location.href = 'checkout.html'; }, 800);
