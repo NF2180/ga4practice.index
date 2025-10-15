@@ -24,52 +24,59 @@
 
   <script src="assets/js/datalayer.js"></script>
   <script>
-    // --- Utility functions ---
-    function getLastItemForCheckout() {
-      try { return JSON.parse(localStorage.getItem('lastCheckoutItem')); } catch(e){ return null; }
-    }
-    function storeLastItemForCheckout(item) { localStorage.setItem('lastCheckoutItem', JSON.stringify(item)); }
-    function clearStoredItem() { localStorage.removeItem('lastCheckoutItem'); }
+    document.addEventListener('DOMContentLoaded', function() {
+      // Utility functions
+      function getLastItemForCheckout() {
+        try { return JSON.parse(localStorage.getItem('lastCheckoutItem')); } catch(e){ return null; }
+      }
+      function storeLastItemForCheckout(item) { localStorage.setItem('lastCheckoutItem', JSON.stringify(item)); }
+      function clearStoredItem() { localStorage.removeItem('lastCheckoutItem'); }
 
-    // --- Retrieve last item ---
-    const item = getLastItemForCheckout();
-    if(item){
-      document.getElementById('checkoutItem').innerHTML = `
-        <p>Item: ${item.item_name}</p>
-        <p>Price: ₹${item.price}</p>
-      `;
+      // Retrieve last item
+      const item = getLastItemForCheckout();
+      if(item){
+        document.getElementById('checkoutItem').innerHTML = `
+          <p>Item: ${item.item_name}</p>
+          <p>Price: ₹${item.price}</p>
+        `;
 
-      // Fire begin_checkout event
-      pushEvent('begin_checkout', {
-        ecommerce: {
-          currency: 'INR',
-          value: item.price,
-          items: [item]
+        // Fire begin_checkout event
+        if(typeof pushEvent === 'function'){
+          pushEvent('begin_checkout', {
+            ecommerce: {
+              currency: 'INR',
+              value: item.price,
+              items: [item]
+            }
+          });
+          console.log('✅ begin_checkout fired');
         }
-      });
-    }
-
-    // --- Confirm Purchase ---
-    const confirmBtn = document.getElementById('confirmPurchaseBtn');
-    confirmBtn.addEventListener('click', function() {
-      if(!item) {
-        alert("No item in checkout!");
-        return;
       }
 
-      pushEvent('purchase', {
-        ecommerce: {
-          transaction_id: 'TXN-' + Date.now(),
-          currency: 'INR',
-          value: item.price,
-          items: [item]
+      // Confirm Purchase button
+      const confirmBtn = document.getElementById('confirmPurchaseBtn');
+      confirmBtn.addEventListener('click', function() {
+        if(!item) {
+          alert("No item in checkout!");
+          return;
         }
+
+        if(typeof pushEvent === 'function'){
+          pushEvent('purchase', {
+            ecommerce: {
+              transaction_id: 'TXN-' + Date.now(),
+              currency: 'INR',
+              value: item.price,
+              items: [item]
+            }
+          });
+          console.log('✅ purchase event fired');
+        }
+
+        clearStoredItem();
+
+        setTimeout(()=>{ window.location.href = 'thank-you.html'; }, 500);
       });
-
-      clearStoredItem();
-
-      console.log("✅ Purchase confirmed, redirecting to thank-you page...");
-      setTimeout(()=>{ window.location.href = 'thank-you.html'; }, 500);
     });
   </script>
 </body>
