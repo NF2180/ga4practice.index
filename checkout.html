@@ -14,6 +14,7 @@
     })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
 </head>
+
 <body>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -23,31 +24,55 @@
   <div id="checkoutDetails"></div>
   <button id="confirmPurchase">Confirm Purchase</button>
 
+  <!-- Load helper functions -->
   <script src="assets/js/datalayer.js"></script>
-  <script>
-    const item = getLastItemForCheckout();
-    if(item) {
-      document.getElementById('checkoutDetails').innerHTML =
-        `<p><strong>${item.item_name}</strong> - ₹${item.price}</p>`;
 
-      // Push begin_checkout event
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    // Ensure helper functions are loaded before using them
+    document.addEventListener('DOMContentLoaded', function() {
+      const item = getLastItemForCheckout();
+
+      if (!item) {
+        document.getElementById('checkoutDetails').innerHTML =
+          '<p style="color:red;">No item found in cart. Please go back and add an item first.</p>';
+        document.getElementById('confirmPurchase').disabled = true;
+        return;
+      }
+
+      // Display checkout summary
+      document.getElementById('checkoutDetails').innerHTML = `
+        <p><strong>${item.item_name}</strong> - ₹${item.price}</p>
+        <p>Category: ${item.item_category}</p>
+      `;
+
+      // Push begin_checkout event once item exists
       pushEvent('begin_checkout', {
         sku_step: 'begin_checkout',
         ecommerce: { items: [item] }
       });
-    }
 
-    document.getElementById('confirmPurchase').addEventListener('click', function(){
-      const transactionId = 'TXN-' + Date.now();
-      pushEvent('purchase', {
-        sku_step: 'purchase',
-        transaction_id: transactionId,
-        value: item.price,
-        currency: item.currency,
-        ecommerce: { items: [item] }
+      // Handle Confirm Purchase button
+      const confirmBtn = document.getElementById('confirmPurchase');
+      confirmBtn.addEventListener('click', function() {
+        const transactionId = 'TXN-' + Date.now();
+
+        pushEvent('purchase', {
+          sku_step: 'purchase',
+          transaction_id: transactionId,
+          value: item.price,
+          currency: item.currency,
+          ecommerce: { items: [item] }
+        });
+
+        // Redirect to thank-you page after delay
+        confirmBtn.textContent = 'Processing...';
+        confirmBtn.disabled = true;
+        setTimeout(() => {
+          window.location.href = 'thank-you.html';
+        }, 1000);
       });
-
-      setTimeout(function(){ window.location.href = 'thank-you.html'; }, 800);
     });
   </script>
 </body>
