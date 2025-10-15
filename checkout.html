@@ -19,60 +19,55 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <h1>Checkout</h1>
-  <p>Review your item before confirming purchase:</p>
-  <div id="checkoutDetails"></div>
-  <button id="confirmPurchase">Confirm Purchase</button>
+  <h1>Checkout Page</h1>
+  <div id="checkoutItem"></div>
+  <button id="confirmPurchaseBtn">Confirm Purchase</button>
 
-  <!-- Load helper functions -->
   <script src="assets/js/datalayer.js"></script>
-
   <script>
-    window.dataLayer = window.dataLayer || [];
+    // 1️⃣ Retrieve item data from localStorage
+    const item = getLastItemForCheckout();
 
-    // Ensure helper functions are loaded before using them
-    document.addEventListener('DOMContentLoaded', function() {
-      const item = getLastItemForCheckout();
+    if (item) {
+      document.getElementById('checkoutItem').innerHTML = `
+        <p>Item: ${item.item_name}</p>
+        <p>Price: ₹${item.price}</p>
+      `;
 
+      // 2️⃣ Fire begin_checkout event
+      pushEvent('begin_checkout', {
+        ecommerce: {
+          currency: 'INR',
+          value: item.price,
+          items: [item]
+        }
+      });
+    }
+
+    // 3️⃣ Confirm Purchase button action
+    document.getElementById('confirmPurchaseBtn').addEventListener('click', function() {
       if (!item) {
-        document.getElementById('checkoutDetails').innerHTML =
-          '<p style="color:red;">No item found in cart. Please go back and add an item first.</p>';
-        document.getElementById('confirmPurchase').disabled = true;
+        alert("No item found in checkout!");
         return;
       }
 
-      // Display checkout summary
-      document.getElementById('checkoutDetails').innerHTML = `
-        <p><strong>${item.item_name}</strong> - ₹${item.price}</p>
-        <p>Category: ${item.item_category}</p>
-      `;
-
-      // Push begin_checkout event once item exists
-      pushEvent('begin_checkout', {
-        sku_step: 'begin_checkout',
-        ecommerce: { items: [item] }
-      });
-
-      // Handle Confirm Purchase button
-      const confirmBtn = document.getElementById('confirmPurchase');
-      confirmBtn.addEventListener('click', function() {
-        const transactionId = 'TXN-' + Date.now();
-
-        pushEvent('purchase', {
-          sku_step: 'purchase',
-          transaction_id: transactionId,
+      // Fire purchase event
+      pushEvent('purchase', {
+        ecommerce: {
+          transaction_id: 'TXN-' + Date.now(),
+          currency: 'INR',
           value: item.price,
-          currency: item.currency,
-          ecommerce: { items: [item] }
-        });
-
-        // Redirect to thank-you page after delay
-        confirmBtn.textContent = 'Processing...';
-        confirmBtn.disabled = true;
-        setTimeout(() => {
-          window.location.href = 'thank-you.html';
-        }, 1000);
+          items: [item]
+        }
       });
+
+      // Clear stored item and redirect
+      clearStoredItem();
+
+      console.log("✅ Purchase confirmed, redirecting to thank-you page...");
+      setTimeout(() => {
+        window.location.href = 'thank-you.html';
+      }, 1000);
     });
   </script>
 </body>
