@@ -19,45 +19,35 @@
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <h1>Checkout</h1>
-  <div id="summary">
-    <p>Item: <span id="itemName">—</span></p>
-    <p>Price: ₹<span id="itemPrice">0</span></p>
-    <button id="completePurchaseBtn">Complete Purchase</button>
-  </div>
+  <p>Review your item before confirming purchase:</p>
+  <div id="checkoutDetails"></div>
+  <button id="confirmPurchase">Confirm Purchase</button>
 
   <script src="assets/js/datalayer.js"></script>
   <script>
-    var last = sessionStorage.getItem('lastItem');
-    var item = last ? JSON.parse(last) : null;
+    const item = getLastItemForCheckout();
+    if(item) {
+      document.getElementById('checkoutDetails').innerHTML =
+        `<p><strong>${item.item_name}</strong> - ₹${item.price}</p>`;
 
-    if (item) {
-      document.getElementById('itemName').textContent = item.item_name || item.itemName || item.item_id;
-      document.getElementById('itemPrice').textContent = item.price || 0;
-
+      // Push begin_checkout event
       pushEvent('begin_checkout', {
-        ecommerce: {
-          items: [ item ]
-        }
+        sku_step: 'begin_checkout',
+        ecommerce: { items: [item] }
       });
-    } else {
-      pushEvent('begin_checkout', { ecommerce: { items: [] } });
     }
 
-    document.getElementById('completePurchaseBtn').addEventListener('click', function(){
-      var txnId = 'T-' + Date.now();
+    document.getElementById('confirmPurchase').addEventListener('click', function(){
+      const transactionId = 'TXN-' + Date.now();
       pushEvent('purchase', {
-        ecommerce: {
-          transaction_id: txnId,
-          value: (item && item.price) || 0,
-          currency: (item && item.currency) || 'INR',
-          items: item ? [ item ] : []
-        }
+        sku_step: 'purchase',
+        transaction_id: transactionId,
+        value: item.price,
+        currency: item.currency,
+        ecommerce: { items: [item] }
       });
 
-      // Save txnId maybe for thank-you if you need to show it
-      sessionStorage.setItem('lastTransactionId', txnId);
-
-      setTimeout(function(){ window.location.href = 'thank-you.html'; }, 900);
+      setTimeout(function(){ window.location.href = 'thank-you.html'; }, 800);
     });
   </script>
 </body>
