@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Checkout Page</title>
+  <title>Checkout</title>
 
   <!-- GTM -->
   <script>
@@ -18,65 +18,46 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <h1>Checkout Page</h1>
-  <div id="checkoutItem"></div>
-  <button id="confirmPurchaseBtn">Confirm Purchase</button>
+  <h1>Checkout</h1>
+  <div id="summary">
+    <p>Item: <span id="itemName">—</span></p>
+    <p>Price: ₹<span id="itemPrice">0</span></p>
+    <button id="completePurchaseBtn">Complete Purchase</button>
+  </div>
 
   <script src="assets/js/datalayer.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Utility functions
-      function getLastItemForCheckout() {
-        try { return JSON.parse(localStorage.getItem('lastCheckoutItem')); } catch(e){ return null; }
-      }
-      function storeLastItemForCheckout(item) { localStorage.setItem('lastCheckoutItem', JSON.stringify(item)); }
-      function clearStoredItem() { localStorage.removeItem('lastCheckoutItem'); }
+    var last = sessionStorage.getItem('lastItem');
+    var item = last ? JSON.parse(last) : null;
 
-      // Retrieve last item
-      const item = getLastItemForCheckout();
-      if(item){
-        document.getElementById('checkoutItem').innerHTML = `
-          <p>Item: ${item.item_name}</p>
-          <p>Price: ₹${item.price}</p>
-        `;
+    if (item) {
+      document.getElementById('itemName').textContent = item.item_name || item.itemName || item.item_id;
+      document.getElementById('itemPrice').textContent = item.price || 0;
 
-        // Fire begin_checkout event
-        if(typeof pushEvent === 'function'){
-          pushEvent('begin_checkout', {
-            ecommerce: {
-              currency: 'INR',
-              value: item.price,
-              items: [item]
-            }
-          });
-          console.log('✅ begin_checkout fired');
+      pushEvent('begin_checkout', {
+        ecommerce: {
+          items: [ item ]
         }
-      }
-
-      // Confirm Purchase button
-      const confirmBtn = document.getElementById('confirmPurchaseBtn');
-      confirmBtn.addEventListener('click', function() {
-        if(!item) {
-          alert("No item in checkout!");
-          return;
-        }
-
-        if(typeof pushEvent === 'function'){
-          pushEvent('purchase', {
-            ecommerce: {
-              transaction_id: 'TXN-' + Date.now(),
-              currency: 'INR',
-              value: item.price,
-              items: [item]
-            }
-          });
-          console.log('✅ purchase event fired');
-        }
-
-        clearStoredItem();
-
-        setTimeout(()=>{ window.location.href = 'thank-you.html'; }, 500);
       });
+    } else {
+      pushEvent('begin_checkout', { ecommerce: { items: [] } });
+    }
+
+    document.getElementById('completePurchaseBtn').addEventListener('click', function(){
+      var txnId = 'T-' + Date.now();
+      pushEvent('purchase', {
+        ecommerce: {
+          transaction_id: txnId,
+          value: (item && item.price) || 0,
+          currency: (item && item.currency) || 'INR',
+          items: item ? [ item ] : []
+        }
+      });
+
+      // Save txnId maybe for thank-you if you need to show it
+      sessionStorage.setItem('lastTransactionId', txnId);
+
+      setTimeout(function(){ window.location.href = 'thank-you.html'; }, 900);
     });
   </script>
 </body>
