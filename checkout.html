@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Checkout</title>
+  <title>Checkout Page</title>
 
   <!-- GTM -->
   <script>
@@ -14,7 +14,6 @@
     })(window,document,'script','dataLayer','GTM-TBQZ253G');
   </script>
 </head>
-
 <body>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBQZ253G"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -25,16 +24,22 @@
 
   <script src="assets/js/datalayer.js"></script>
   <script>
-    // 1️⃣ Retrieve item data from localStorage
-    const item = getLastItemForCheckout();
+    // --- Utility functions ---
+    function getLastItemForCheckout() {
+      try { return JSON.parse(localStorage.getItem('lastCheckoutItem')); } catch(e){ return null; }
+    }
+    function storeLastItemForCheckout(item) { localStorage.setItem('lastCheckoutItem', JSON.stringify(item)); }
+    function clearStoredItem() { localStorage.removeItem('lastCheckoutItem'); }
 
-    if (item) {
+    // --- Retrieve last item ---
+    const item = getLastItemForCheckout();
+    if(item){
       document.getElementById('checkoutItem').innerHTML = `
         <p>Item: ${item.item_name}</p>
         <p>Price: ₹${item.price}</p>
       `;
 
-      // 2️⃣ Fire begin_checkout event
+      // Fire begin_checkout event
       pushEvent('begin_checkout', {
         ecommerce: {
           currency: 'INR',
@@ -44,14 +49,14 @@
       });
     }
 
-    // 3️⃣ Confirm Purchase button action
-    document.getElementById('confirmPurchaseBtn').addEventListener('click', function() {
-      if (!item) {
-        alert("No item found in checkout!");
+    // --- Confirm Purchase ---
+    const confirmBtn = document.getElementById('confirmPurchaseBtn');
+    confirmBtn.addEventListener('click', function() {
+      if(!item) {
+        alert("No item in checkout!");
         return;
       }
 
-      // Fire purchase event
       pushEvent('purchase', {
         ecommerce: {
           transaction_id: 'TXN-' + Date.now(),
@@ -61,13 +66,10 @@
         }
       });
 
-      // Clear stored item and redirect
       clearStoredItem();
 
       console.log("✅ Purchase confirmed, redirecting to thank-you page...");
-      setTimeout(() => {
-        window.location.href = 'thank-you.html';
-      }, 1000);
+      setTimeout(()=>{ window.location.href = 'thank-you.html'; }, 500);
     });
   </script>
 </body>
